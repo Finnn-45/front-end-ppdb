@@ -3,37 +3,35 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
-const users = [
-  { email: "admin@gmail.com", password: "admin", role: "admin" },
-  { email: "peserta1@gmail.com", password: "12345", role: "peserta" },
-  { email: "peserta2@gmail.com", password: "67890", role: "peserta" },
-]
-
 export default function LoginForm() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
-    const user = users.find(
-      (u) => u.email === email && u.password === password
-    )
 
-    if (user) {
-      localStorage.setItem("logged_in", "true")
-      localStorage.setItem("user_role", user.role)
-      localStorage.setItem("user_email", user.email)
+    // Trim biar gak ada spasi yang bikin error
+    const userEmail = email.trim()
+    const userPass = password.trim()
 
-      if (user.role === "admin") router.push("/dashboard")
-      else router.push("/page-form")
-    } else {
+    if (userEmail === "admin@gmail.com" && userPass === "admin") {
+      localStorage.setItem("admin_logged_in", "true")
+      localStorage.setItem("admin_username", "admin")
+      router.push("/dashboard") // arahkan ke dashboard
+    } 
+    else if (userEmail === "peserta@gmail.com" && userPass === "12345") {
+      localStorage.setItem("admin_logged_in", "true")
+      localStorage.setItem("admin_username", "peserta")
+      router.push("/dashboard")
+    } 
+    else {
       alert("Email atau kata sandi salah!")
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleLogin} className="space-y-4">
       <input
         type="text"
         placeholder="Nama Anda"
