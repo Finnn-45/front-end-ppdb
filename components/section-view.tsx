@@ -8,10 +8,10 @@ import { AnimatedCard } from "@/components/animated-card"
 import { Monitor } from "lucide-react"
 
 // Import pages
-import PageData from "@/components/page-data"
-import PageAcceptedData from "@/components/page-accepted-data"
-import PageVerifiedData from "@/components/page-verified-data"
-import PageProfileSettings from "@/components/page-profilesettings"
+// import PageData from "@/components/page-data"
+//import PageAcceptedData from "@/components/page-accepted-data"
+//import PageVerifiedData from "@/components/page-verified-data"
+//import PageProfileSettings from "@/components/page-profile-settings"
 
 interface SectionViewProps {
   sectionId: string
@@ -30,7 +30,7 @@ export function SectionView({ sectionId }: SectionViewProps) {
     }
   }, [sectionId])
 
-  switch (sectionId) {
+  /* switch (sectionId) {
     case "dashboard":
       return <div ref={containerRef}><DashboardOverview /></div>
     case "table-data":
@@ -48,8 +48,7 @@ export function SectionView({ sectionId }: SectionViewProps) {
         </div>
       )
   }
-}
-
+} */ 
 
 function DashboardOverview() {
   const statsRef = useRef<HTMLDivElement>(null)
@@ -117,4 +116,5 @@ function StatCard({ title, value }: { title: string; value: number }) {
       </CardContent>
     </AnimatedCard>
   )
+}
 }
