@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import "animate.css";
+import { ChevronDown } from "lucide-react";
 
 interface RumahForm {
   tahunPerolehan: string;
@@ -20,6 +21,7 @@ interface RumahForm {
 
 export default function PageFormRumah() {
   const router = useRouter();
+
   const [formData, setFormData] = useState<RumahForm>({
     tahunPerolehan: "",
     luasTanah: "",
@@ -33,250 +35,423 @@ export default function PageFormRumah() {
     sumberAir: "",
   });
 
-  const inputClass =
-    "border border-gray-300 rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none w-full";
+  const [isLainnya, setIsLainnya] = useState({
+    statusKendaraan: false,
+    statusHarta: false,
+    sumberAir: false,
+  });
 
+  const inputClass =
+    "border border-gray-300 rounded-full px-4 py-3 text-sm sm:text-base placeholder:text-gray-500 focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none w-full min-h-[48px]";
   const selectClass =
-    "border border-gray-300 rounded-full px-4 py-2 text-sm bg-white focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none w-full";
+    "border border-gray-300 rounded-full px-4 py-3 text-sm sm:text-base bg-white focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none w-full min-h-[48px] pr-10 appearance-none";
+
+  const handleNumberOnly = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const onlyNums = value.replace(/[^0-9]/g, "");
+    setFormData((prev) => ({ ...prev, [name]: onlyNums }));
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (
+      ["statusKendaraan", "statusHarta", "sumberAir"].includes(name) &&
+      value.trim() === ""
+    ) {
+      setIsLainnya((prev) => ({ ...prev, [name]: false }));
+    }
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    if (value === "lainnya") {
+      setIsLainnya((prev) => ({ ...prev, [name]: true }));
+      setFormData((prev) => ({ ...prev, [name]: "" }));
+    } else {
+      setIsLainnya((prev) => ({ ...prev, [name]: false }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const validateForm = () => {
-    return Object.values(formData).every(
-      (value) => value && value.trim() !== ""
-    );
+    const emptyFields: string[] = [];
+    const labels: Record<keyof RumahForm, string> = {
+      tahunPerolehan: "Tahun Perolehan",
+      luasTanah: "Luas Tanah",
+      kualitasRumah: "Kualitas Rumah",
+      statusKepemilikanRumah: "Status Kepemilikan Rumah",
+      kendaraanDimiliki: "Kendaraan Bermotor",
+      statusKendaraan: "Status Kendaraan",
+      hartaTidakBergerak: "Harta Tidak Bergerak",
+      statusHarta: "Status Harta",
+      dayaListrik: "Daya Listrik",
+      sumberAir: "Sumber Air",
+    };
+
+    const requiredFields: (keyof RumahForm)[] = [
+      "tahunPerolehan",
+      "luasTanah",
+      "kualitasRumah",
+      "statusKepemilikanRumah",
+      "dayaListrik",
+      "sumberAir",
+    ];
+
+    requiredFields.forEach((key) => {
+      if (!formData[key] || formData[key].trim() === "") {
+        emptyFields.push(labels[key]);
+      }
+    });
+
+    return emptyFields;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validateForm()) {
+    const emptyFields = validateForm();
+
+    if (emptyFields.length > 0) {
       Swal.fire({
-        title: "Data Belum Lengkap!",
-        text: "Pastikan semua kolom telah diisi sebelum melanjutkan.",
         icon: "warning",
-        showClass: { popup: "animate__animated animate__shakeX animate__slow" },
-        hideClass: { popup: "animate__animated animate__fadeOut" },
+        title: "Data Belum Lengkap!",
+        html: `
+          <p class="mb-2">Lengkapi kolom berikut:</p>
+          <ul style="text-align:left; display:inline-block;">
+            ${emptyFields.map((f) => `<li>• ${f}</li>`).join("")}
+          </ul>
+        `,
+        confirmButtonText: "Oke, isi sekarang",
         confirmButtonColor: "#1E3A8A",
-        confirmButtonText: "Mengerti",
+        background: "#f9fafb",
+        color: "#1E293B",
+        showClass: { popup: "animate__animated animate__shakeX" },
+        hideClass: { popup: "animate__animated animate__fadeOutUp" },
       });
       return;
     }
 
     Swal.fire({
+      icon: "success",
       title: "Data Tersimpan!",
       text: "Form Data Rumah kamu berhasil disimpan.",
-      icon: "success",
-      showClass: {
-        popup: "animate__animated animate__fadeInDown animate__slow",
-      },
-      hideClass: { popup: "animate__animated animate__fadeOutUp animate__slow" },
-      confirmButtonColor: "#1E3A8A",
       confirmButtonText: "Lanjutkan",
+      confirmButtonColor: "#1E3A8A",
     }).then(() => router.push("/page-form/page-5"));
   };
 
   const handleBack = () => router.push("/page-form/page-3");
 
+  // Komponen select dengan ikon
+  const SelectWithIcon = ({
+    name,
+    value,
+    onChange,
+    options,
+    placeholder,
+  }: {
+    name: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    options: { value: string; label: string }[];
+    placeholder: string;
+  }) => (
+    <div className="relative">
+      <select
+        name={name}
+        value={value}
+        onChange={onChange}
+        className={selectClass}
+      >
+        <option value="">{placeholder}</option>
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={20} />
+    </div>
+  );
+
   return (
-    <div className="w-full max-w-full md:max-w-6xl mx-auto bg-gray-50 rounded-xl p-4 sm:p-6 md:p-10 shadow-sm animate__animated animate__fadeIn animate__slow">
-      {/* Header dan Stepper */}
-      <div className="mb-8 sm:mb-12 text-center">
-        <h1 className="text-xl sm:text-2xl font-bold text-[#1E3A8A] mb-4">
-          Formulir Pendaftaran
-        </h1>
+    <>
+      {/* 🔵 HEADER DENGAN GRADIENT */}
+      <header className="relative h-64 md:h-72 overflow-hidden">
+        <img
+          src="/bck.png"
+          alt="Background Indonesia"
+          className="absolute inset-0 w-full h-full object-cover opacity-85"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1E3A8A]/70 via-[#1E3A8A]/10 to-white"></div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+          <h1 className="text-[#EAF0FF] text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">
+            Formulir Pendaftaran Calon Siswa
+          </h1>
+          <p className="mt-3 text-[#949494] text-base sm:text-lg md:text-xl font-medium opacity-95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.25)]">
+            Rumah Tinggal
+          </p>
+        </div>
+      </header>
 
-        {/* Stepper (mulai dari 2, step 4 aktif) */}
-        <div className="flex justify-center items-center flex-wrap gap-4 sm:space-x-6">
-          {/* Step 2 */}
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-semibold text-sm sm:text-base">
-              2
-            </div>
-            <p className="mt-1 text-xs sm:text-sm text-gray-500">
-              Data Prestasi
-            </p>
-          </div>
+      {/* 🏠 FORM BAGIAN UTAMA */}
+      <div className="w-full max-w-6xl mx-auto bg-gray-50 rounded-xl p-4 sm:p-6 md:p-10 shadow-sm animate__animated animate__fadeIn mt-6">
+        <div className="mb-8 text-center">
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1E3A8A] mb-4">
+            Formulir Pendaftaran Calon Siswa
+          </h1>
 
-          <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
-
-          {/* Step 3 */}
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-semibold text-sm sm:text-base">
-              3
-            </div>
-            <p className="mt-1 text-xs sm:text-sm text-gray-500">
-              Data Orang Tua / Wali
-            </p>
-          </div>
-
-          <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
-
-          {/* Step 4 (aktif) */}
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-[#1E3A8A] text-white font-semibold text-sm sm:text-base">
-              4
-            </div>
-            <p className="mt-1 text-xs sm:text-sm text-[#1E3A8A]">
-              Rumah Tinggal
-            </p>
+          <div className="flex justify-center items-center flex-wrap gap-4">
+            {[2, 3, 4].map((num, i) => (
+              <React.Fragment key={num}>
+                <div className="flex flex-col items-center">
+                  <div
+                    className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold text-sm sm:text-base ${
+                      num === 4
+                        ? "bg-[#1E3A8A] text-white"
+                        : "bg-gray-300 text-gray-600"
+                    }`}
+                  >
+                    {num}
+                  </div>
+                  <p
+                    className={`mt-1 text-xs sm:text-sm ${
+                      num === 4 ? "text-[#1E3A8A]" : "text-gray-500"
+                    }`}
+                  >
+                    {num === 2
+                      ? "Data Prestasi"
+                      : num === 3
+                      ? "Data Orang Tua / Wali"
+                      : "Rumah Tinggal"}
+                  </p>
+                </div>
+                {i < 2 && (
+                  <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
+                )}
+              </React.Fragment>
+            ))}
           </div>
         </div>
+
+        {/* FORM */}
+        <form onSubmit={handleSubmit} className="space-y-8 sm:space-y-10">
+          {/* Data Rumah */}
+          <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
+            <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
+              Data Rumah Tinggal
+            </h2>
+
+            <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                name="tahunPerolehan"
+                placeholder="Tahun Perolehan"
+                value={formData.tahunPerolehan}
+                onChange={handleNumberOnly}
+                className={inputClass}
+                inputMode="numeric"
+                maxLength={4}
+              />
+
+              <div className="relative">
+                <input
+                  name="luasTanah"
+                  placeholder="Luas Tanah"
+                  value={formData.luasTanah}
+                  onChange={handleNumberOnly}
+                  className={`${inputClass} pr-10`}
+                  inputMode="numeric"
+                />
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">
+                  m²
+                </span>
+              </div>
+
+              <SelectWithIcon
+                name="kualitasRumah"
+                value={formData.kualitasRumah}
+                onChange={handleChange}
+                placeholder="Kualitas Rumah"
+                options={[
+                  { value: "baik", label: "Baik" },
+                  { value: "sedang", label: "Sedang" },
+                  { value: "kurang", label: "Kurang" },
+                ]}
+              />
+
+              <SelectWithIcon
+                name="statusKepemilikanRumah"
+                value={formData.statusKepemilikanRumah}
+                onChange={handleChange}
+                placeholder="Status Kepemilikan Rumah"
+                options={[
+                  { value: "milik_sendiri", label: "Milik Sendiri" },
+                  { value: "sewa", label: "Kontrak" },
+                  { value: "menumpang", label: "Menumpang" },
+                ]}
+              />
+            </div>
+          </section>
+
+          {/* Fasilitas dan Harta */}
+          <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
+            <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
+              Fasilitas dan Harta
+            </h2>
+
+            <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <SelectWithIcon
+                name="kendaraanDimiliki"
+                value={formData.kendaraanDimiliki}
+                onChange={handleChange}
+                placeholder="Kendaraan"
+                options={[
+                  { value: "motor", label: "Motor" },
+                  { value: "mobil", label: "Mobil" },
+                  { value: "tidak_ada", label: "Tidak Ada" },
+                ]}
+              />
+
+              <div className="relative transition-all duration-300 ease-in-out">
+                {!isLainnya.statusKendaraan ? (
+                  <SelectWithIcon
+                    name="statusKendaraan"
+                    value={formData.statusKendaraan}
+                    onChange={handleSelectChange}
+                    placeholder="Status Kepemilikan Kendaraan (Jika ada)"
+                    options={[
+                      { value: "milik_sendiri", label: "Milik Sendiri" },
+                      { value: "pinjam", label: "Pinjam" },
+                      { value: "lainnya", label: "Lainnya" },
+                    ]}
+                  />
+                ) : (
+                  <input
+                    name="statusKendaraan"
+                    placeholder="Tuliskan status kepemilikan kendaraan..."
+                    value={formData.statusKendaraan}
+                    onChange={handleChange}
+                    className={`${inputClass} bg-blue-50 border-blue-300 animate-fadeIn`}
+                  />
+                )}
+              </div>
+
+              <SelectWithIcon
+                name="hartaTidakBergerak"
+                value={formData.hartaTidakBergerak}
+                onChange={handleChange}
+                placeholder="Harta Tidak Bergerak (opsional)"
+                options={[
+                  { value: "tanah", label: "Tanah" },
+                  { value: "bangunan", label: "Bangunan" },
+                  { value: "tidak_ada", label: "Tidak Ada" },
+                ]}
+              />
+
+              <div className="relative transition-all duration-300 ease-in-out">
+                {!isLainnya.statusHarta ? (
+                  <SelectWithIcon
+                    name="statusHarta"
+                    value={formData.statusHarta}
+                    onChange={handleSelectChange}
+                    placeholder="Status Kepemilikan Harta"
+                    options={[
+                      { value: "milik_sendiri", label: "Milik Sendiri" },
+                      { value: "warisan", label: "Warisan" },
+                      { value: "lainnya", label: "Lainnya" },
+                    ]}
+                  />
+                ) : (
+                  <input
+                    name="statusHarta"
+                    placeholder="Tuliskan status kepemilikan harta..."
+                    value={formData.statusHarta}
+                    onChange={handleChange}
+                    className={`${inputClass} bg-blue-50 border-blue-300 animate-fadeIn`}
+                  />
+                )}
+              </div>
+
+              <SelectWithIcon
+                name="dayaListrik"
+                value={formData.dayaListrik}
+                onChange={handleChange}
+                placeholder="Daya Listrik"
+                options={[
+                  { value: "450", label: "450 VA" },
+                  { value: "900", label: "900 VA" },
+                  { value: "1300", label: "1300 VA" },
+                  { value: "2200", label: "2200 VA" },
+                ]}
+              />
+
+              <div className="relative transition-all duration-300 ease-in-out">
+                {!isLainnya.sumberAir ? (
+                  <SelectWithIcon
+                    name="sumberAir"
+                    value={formData.sumberAir}
+                    onChange={handleSelectChange}
+                    placeholder="Sumber Air"
+                    options={[
+                      { value: "sumur", label: "Sumur" },
+                      { value: "pdam", label: "PDAM" },
+                      { value: "lainnya", label: "Lainnya" },
+                    ]}
+                  />
+                ) : (
+                  <input
+                    name="sumberAir"
+                    placeholder="Tuliskan sumber air lainnya..."
+                    value={formData.sumberAir}
+                    onChange={handleChange}
+                    className={`${inputClass} bg-blue-50 border-blue-300 animate-fadeIn`}
+                  />
+                )}
+              </div>
+            </div>
+          </section>
+
+          <p className="text-center text-xs sm:text-sm text-gray-500">
+            Kolom bertanda (opsional) boleh dikosongkan.
+          </p>
+
+          <div className="flex flex-col sm:flex-row justify-between mt-6 gap-3">
+            <button
+              type="button"
+              onClick={handleBack}
+              className="w-full sm:w-auto bg-gray-300 text-gray-800 font-medium px-6 sm:px-8 py-2 rounded-full hover:bg-gray-400 transition"
+            >
+              Kembali
+            </button>
+            <button
+              type="submit"
+              className="w-full sm:w-auto bg-[#1E3A8A] text-white font-medium px-6 sm:px-8 py-2 rounded-full hover:bg-[#162d66] transition"
+            >
+              Selanjutnya
+            </button>
+          </div>
+        </form>
       </div>
 
-      {/* FORM */}
-      <form onSubmit={handleSubmit} className="space-y-8 sm:space-y-10">
-        {/* Rumah Tinggal */}
-        <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
-          <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
-            Data Rumah Tinggal
-          </h2>
-          <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              name="tahunPerolehan"
-              placeholder="Tahun Perolehan"
-              value={formData.tahunPerolehan}
-              onChange={handleChange}
-              className={inputClass}
-            />
-            <input
-              name="luasTanah"
-              placeholder="Luas Tanah (m²)"
-              value={formData.luasTanah}
-              onChange={handleChange}
-              className={inputClass}
-            />
-            <select
-              name="kualitasRumah"
-              value={formData.kualitasRumah}
-              onChange={handleChange}
-              className={selectClass}
-            >
-              <option value="">Kualitas Rumah</option>
-              <option value="baik">Baik</option>
-              <option value="sedang">Sedang</option>
-              <option value="kurang">Kurang</option>
-            </select>
-            <select
-              name="statusKepemilikanRumah"
-              value={formData.statusKepemilikanRumah}
-              onChange={handleChange}
-              className={selectClass}
-            >
-              <option value="">Status Kepemilikan Rumah</option>
-              <option value="milik_sendiri">Milik Sendiri</option>
-              <option value="sewa">Sewa</option>
-              <option value="menumpang">Menumpang</option>
-            </select>
-          </div>
-        </section>
-
-        {/* Fasilitas */}
-        <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
-          <h2 className="border-b border-[#1E3A8A] text-[#1E3A8A] text-base sm:text-lg font-semibold px-6 py-3">
-            Fasilitas dan Harta
-          </h2>
-          <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <select
-              name="kendaraanDimiliki"
-              value={formData.kendaraanDimiliki}
-              onChange={handleChange}
-              className={selectClass}
-            >
-              <option value="">Kendaraan Bermotor</option>
-              <option value="motor">Motor</option>
-              <option value="mobil">Mobil</option>
-              <option value="tidak_ada">Tidak Ada</option>
-            </select>
-
-            <select
-              name="statusKendaraan"
-              value={formData.statusKendaraan}
-              onChange={handleChange}
-              className={selectClass}
-            >
-              <option value="">Status Kepemilikan Kendaraan</option>
-              <option value="milik_sendiri">Milik Sendiri</option>
-              <option value="pinjam">Pinjam</option>
-              <option value="lainnya">Lainnya</option>
-            </select>
-
-            <select
-              name="hartaTidakBergerak"
-              value={formData.hartaTidakBergerak}
-              onChange={handleChange}
-              className={selectClass}
-            >
-              <option value="">Harta Tidak Bergerak</option>
-              <option value="tanah">Tanah</option>
-              <option value="bangunan">Bangunan</option>
-              <option value="tidak_ada">Tidak Ada</option>
-            </select>
-
-            <select
-              name="statusHarta"
-              value={formData.statusHarta}
-              onChange={handleChange}
-              className={selectClass}
-            >
-              <option value="">Status Kepemilikan Harta</option>
-              <option value="milik_sendiri">Milik Sendiri</option>
-              <option value="warisan">Warisan</option>
-              <option value="lainnya">Lainnya</option>
-            </select>
-
-            <select
-              name="dayaListrik"
-              value={formData.dayaListrik}
-              onChange={handleChange}
-              className={selectClass}
-            >
-              <option value="">Daya Listrik</option>
-              <option value="450">450 VA</option>
-              <option value="900">900 VA</option>
-              <option value="1300">1300 VA</option>
-              <option value="2200">2200 VA</option>
-            </select>
-
-            <select
-              name="sumberAir"
-              value={formData.sumberAir}
-              onChange={handleChange}
-              className={selectClass}
-            >
-              <option value="">Sumber Air</option>
-              <option value="sumur">Sumur</option>
-              <option value="pdam">PDAM</option>
-              <option value="lainnya">Lainnya</option>
-            </select>
-          </div>
-        </section>
-
-        <p className="text-center text-xs sm:text-sm text-gray-500">
-          Pastikan semua form telah diisi dengan benar sebelum lanjut ke tahap berikutnya.
-        </p>
-
-        <div className="flex flex-col sm:flex-row justify-between mt-6 gap-3">
-          <button
-            type="button"
-            onClick={handleBack}
-            className="w-full sm:w-auto bg-gray-300 text-gray-800 font-medium px-6 sm:px-8 py-2 rounded-full hover:bg-gray-400 transition"
-          >
-            Kembali
-          </button>
-          <button
-            type="submit"
-            className="w-full sm:w-auto bg-[#1E3A8A] text-white font-medium px-6 sm:px-8 py-2 rounded-full hover:bg-[#162d66] transition"
-          >
-            Selanjutnya
-          </button>
-        </div>
-      </form>
-    </div>
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.25s ease-in-out;
+        }
+      `}</style>
+    </>
   );
 }
