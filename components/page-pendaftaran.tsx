@@ -129,7 +129,7 @@ export default function PagePendaftaran() {
         </div>
       </section>
 
-<section className="relative mb-16 text-center py-14 px-6 bg-gradient-to-r from-[#e8eeff] to-[#f5f8ff] rounded-2xl shadow-lg overflow-hidden">
+<section className="relative mb-16 text-center py-14 px-6 bg-gradient-to-r from-[#e8eeff] to-[#f5f8ff] rounded-2xl shadow-lg overflow-hidden mt-10">
   {/* Ornamen latar */}
   <div className="absolute top-0 left-0 w-40 h-40 bg-[#1E3A8A]/10 rounded-full blur-3xl -z-0"></div>
   <div className="absolute bottom-0 right-0 w-56 h-56 bg-[#3b82f6]/10 rounded-full blur-3xl -z-0"></div>

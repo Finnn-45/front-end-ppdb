@@ -176,23 +176,29 @@ const PageForm: React.FC = () => {
 
   return (
     <>
-      {/* 🔵 HEADER DENGAN GRADIENT BIRU & PETA INDONESIA */}
-      <header className="relative h-64 md:h-72 overflow-hidden">
-        <img
-          src="/bck.png"
-          alt="Background Indonesia"
-          className="absolute inset-0 w-full h-full object-cover opacity-85"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1E3A8A]/70 via-[#1E3A8A]/10 to-white"></div>
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-          <h1 className="text-[#EAF0FF] text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">
-            Formulir Pendaftaran Calon Siswa
-          </h1>
-          <p className="mt-3 text-[#949494] text-base sm:text-lg md:text-xl font-medium opacity-95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.25)]">
-            Data Prestasi
-          </p>
-        </div>
-      </header>
+ {/* HEADER (disamakan dengan halaman Data Pribadi) */}
+<header className="relative h-64 md:h-72 overflow-hidden">
+  {/* Background image */}
+  <img
+    src="/bck.png"
+    alt="Background Indonesia"
+    className="absolute inset-0 w-full h-full object-cover opacity-85"
+  />
+
+  {/* Gradient overlay */}
+  <div className="absolute inset-0 bg-gradient-to-b from-[#1E3A8A]/70 via-[#1E3A8A]/10 to-white"></div>
+
+  {/* Text content */}
+  <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+    <h1 className="text-[#EAF0FF] text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">
+      Formulir Pendaftaran Calon Siswa
+    </h1>
+    <p className="mt-3 text-[#949494] text-base sm:text-lg md:text-xl font-medium opacity-95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.25)]">
+      Data Prestasi
+    </p>
+  </div>
+</header>
+
 
       {/* 🧾 FORM SECTION */}
       <div className="w-full max-w-6xl mx-auto bg-gray-50 rounded-2xl p-4 sm:p-6 md:p-10 shadow-md animate__animated animate__fadeIn animate__slow ">

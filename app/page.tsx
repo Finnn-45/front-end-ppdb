@@ -12,7 +12,7 @@ export default function PageLogin() {
           
           {/* Logo SMK (pakai gambar) */}
           <img
-            src="/logo.png" // ganti dengan path gambar kamu
+            src="/logo1.png" // ganti dengan path gambar kamu
             alt="Logo SMK"
             className="w-24 h-24 md:w-90 md:h-28 mb-4 object-contain"
           />
@@ -30,7 +30,7 @@ export default function PageLogin() {
         {/* Kanan: Poster */}
         <div className="flex-1 flex justify-center items-center bg-[#f5f7ff] p-8">
           <img
-            src="/image 19.png"
+            src="/page.png"
             alt="Poster PPDB"
             className="max-w-xs md:max-w-md w-full h-auto object-contain"
           />
