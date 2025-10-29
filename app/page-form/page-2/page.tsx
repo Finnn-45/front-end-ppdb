@@ -279,7 +279,7 @@ const PageFormPrestasi: React.FC = () => {
                 <input
                   type="text"
                   name="foreignLanguage"
-                  placeholder="Bahasa asing yang disukai (Jika Ada)"
+                  placeholder="Bahasa asing yang dikuasai (Jika Ada)"
                   value={formData.foreignLanguage}
                   onChange={handleChange}
                   className={inputClass}
@@ -287,7 +287,7 @@ const PageFormPrestasi: React.FC = () => {
                 <input
                   type="text"
                   name="hafalan"
-                  placeholder="Jumlah Hafalan (misal: 5 juz)"
+                  placeholder="Jumlah Hafalan (misal: 5 juz dan tuliskan no juznya )"
                   value={formData.hafalan}
                   onChange={handleChange}
                   className={inputClass}

@@ -7,7 +7,6 @@ import "animate.css";
 import { ChevronDown } from "lucide-react";
 
 interface RumahForm {
-  tahunPerolehan: string;
   luasTanah: string;
   kualitasRumah: string;
   statusKepemilikanRumah: string;
@@ -23,7 +22,6 @@ export default function PageFormRumah() {
   const router = useRouter();
 
   const [formData, setFormData] = useState<RumahForm>({
-    tahunPerolehan: "",
     luasTanah: "",
     kualitasRumah: "",
     statusKepemilikanRumah: "",
@@ -80,7 +78,6 @@ export default function PageFormRumah() {
   const validateForm = () => {
     const emptyFields: string[] = [];
     const labels: Record<keyof RumahForm, string> = {
-      tahunPerolehan: "Tahun Perolehan",
       luasTanah: "Luas Tanah",
       kualitasRumah: "Kualitas Rumah",
       statusKepemilikanRumah: "Status Kepemilikan Rumah",
@@ -93,7 +90,6 @@ export default function PageFormRumah() {
     };
 
     const requiredFields: (keyof RumahForm)[] = [
-      "tahunPerolehan",
       "luasTanah",
       "kualitasRumah",
       "statusKepemilikanRumah",
@@ -174,7 +170,10 @@ export default function PageFormRumah() {
           </option>
         ))}
       </select>
-      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={20} />
+      <ChevronDown
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+        size={20}
+      />
     </div>
   );
 
@@ -247,23 +246,13 @@ export default function PageFormRumah() {
             </h2>
 
             <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                name="tahunPerolehan"
-                placeholder="Tahun Perolehan"
-                value={formData.tahunPerolehan}
-                onChange={handleNumberOnly}
-                className={inputClass}
-                inputMode="numeric"
-                maxLength={4}
-              />
-
               <div className="relative">
                 <input
                   name="luasTanah"
                   placeholder="Luas Tanah"
                   value={formData.luasTanah}
                   onChange={handleNumberOnly}
-                  className={`${inputClass} pr-10`}
+                  className={`${inputClass} sm:col-span-2`}
                   inputMode="numeric"
                 />
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">
@@ -283,17 +272,19 @@ export default function PageFormRumah() {
                 ]}
               />
 
-              <SelectWithIcon
-                name="statusKepemilikanRumah"
-                value={formData.statusKepemilikanRumah}
-                onChange={handleChange}
-                placeholder="Status Kepemilikan Rumah"
-                options={[
-                  { value: "milik_sendiri", label: "Milik Sendiri" },
-                  { value: "sewa", label: "Kontrak" },
-                  { value: "menumpang", label: "Menumpang" },
-                ]}
-              />
+              <div className="w-full sm:col-span-2">
+                <SelectWithIcon
+                  name="statusKepemilikanRumah"
+                  value={formData.statusKepemilikanRumah}
+                  onChange={handleChange}
+                  placeholder="Status Kepemilikan Rumah"
+                  options={[
+                    { value: "milik_sendiri", label: "Milik Sendiri" },
+                    { value: "sewa", label: "Kontrakkan" },
+                    { value: "menumpang", label: "Menumpang" },
+                  ]}
+                />
+              </div>
             </div>
           </section>
 

@@ -22,14 +22,14 @@ const steps = [
     inactiveImg: "/icons/1 (6).png",
   },
   {
-    name: "Tes Psikotest",
-    activeImg: "/icons/1 (7).png",
-    inactiveImg: "/icons/1 (8).png",
-  },
-  {
     name: "Wawancara",
     activeImg: "/icons/1 (9).png",
     inactiveImg: "/icons/1 (10).png",
+  },
+  {
+    name: "Tes Psikotest",
+    activeImg: "/icons/1 (7).png",
+    inactiveImg: "/icons/1 (8).png",
   },
   {
     name: "Pengumuman",
@@ -301,9 +301,6 @@ export default function PagePendaftaran() {
       {/* Alur Pendaftaran (Stepper) */}
       <section className="mb-10">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden p-6">
-          <h2 className="text-lg font-semibold mb-10 text-center md:text-left">
-            Alur Pendaftaran
-          </h2>
 
           {/* Desktop */}
           <div className="hidden md:flex relative justify-between items-start">

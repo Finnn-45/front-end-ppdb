@@ -262,15 +262,6 @@ const PageFormKesehatan: React.FC = () => {
                 </div>
               </div>
 
-              {/* Penyakit Menular */}
-              <input
-                type="text"
-                name="penyakitMenular"
-                placeholder="Penyakit menular yang pernah diderita (jika ada)"
-                value={formData.penyakitMenular}
-                onChange={handleChange}
-                className={inputClass}
-              />
 
               {/* Alergi */}
               {!isAlergiLainnya ? (
@@ -282,6 +273,7 @@ const PageFormKesehatan: React.FC = () => {
                   options={[
                     { value: "asma", label: "Asma" },
                     { value: "alergi", label: "Alergi" },
+                    { value: "TBC", label: "TBC " },
                     { value: "lainnya", label: "Lainnya" },
                   ]}
                 />
@@ -301,7 +293,6 @@ const PageFormKesehatan: React.FC = () => {
                 "pengobatan",
                 "golonganDarah",
                 "butaWarna",
-                "sedangPengobatan",
                 "perokok",
               ].map((key) => {
                 const options: { value: string; label: string }[] =
@@ -325,7 +316,6 @@ const PageFormKesehatan: React.FC = () => {
                   pengobatan: "Apakah sedang dalam pengobatan?",
                   golonganDarah: "Golongan Darah",
                   butaWarna: "Apakah Anda Buta Warna?",
-                  sedangPengobatan: "Sedang dalam pengobatan?",
                   perokok: "Apakah Anda Perokok?",
                 };
                 return (

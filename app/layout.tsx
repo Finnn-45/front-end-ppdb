@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   title: "SPMB SMK TI Bazma ",
   description: "Dashboard Admin untuk Penerimaan Peserta Didik Baru SMK TI Bazma 2026",
   generator: "v0.app",
+   icons: {
+    icon: "/layout-logo.png",
+  },
 }
 
 export default function RootLayout({

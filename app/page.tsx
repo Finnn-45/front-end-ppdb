@@ -10,9 +10,8 @@ export default function PageLogin() {
         {/* Kiri: Form Login */}
         <div className="flex-1 flex flex-col justify-center items-center p-8">
           
-          {/* Logo SMK (pakai gambar) */}
           <img
-            src="/logo1.png" // ganti dengan path gambar kamu
+            src="/logo1.png"
             alt="Logo SMK"
             className="w-24 h-24 md:w-90 md:h-28 mb-4 object-contain"
           />
@@ -21,14 +20,13 @@ export default function PageLogin() {
             Selamat Datang! Silahkan Login
           </h2>
 
-          {/* Form Login */}
           <div className="w-full max-w-sm">
             <LoginForm />
           </div>
         </div>
 
-        {/* Kanan: Poster */}
-        <div className="flex-1 flex justify-center items-center bg-[#f5f7ff] p-8">
+        {/* Kanan: Poster (DISEMBUNYIKAN DI MOBILE) */}
+        <div className="hidden md:flex flex-1 justify-center items-center bg-[#f5f7ff] p-8">
           <img
             src="/page.png"
             alt="Poster PPDB"

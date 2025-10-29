@@ -128,48 +128,65 @@ export default function PageBantuan() {
         </div>
       </section>
 
-      {/* Alamat Sekolah */}
-      <section className="bg-[#1E3A8A] text-white py-10 px-6 md:px-12 lg:px-20 rounded-t-3xl shadow-inner">
-        <div className="max-w-5xl mx-auto text-center md:text-left">
-          <h2 className="text-xl md:text-2xl font-bold mb-4 flex items-center justify-center md:justify-start gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6 text-yellow-300"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 22s8-5.5 8-12a8 8 0 10-16 0c0 6.5 8 12 8 12z"
-              />
-            </svg>
-            Alamat Sekolah
-          </h2>
+    {/* Alamat Sekolah */}
+{/* Alamat Sekolah */}
+<section className="bg-[#1E3A8A] text-white py-10 px-6 md:px-12 lg:px-20 rounded-t-3xl shadow-inner">
+  <div className="max-w-5xl mx-auto text-center md:text-left">
+    <h2 className="text-xl md:text-2xl font-bold mb-4 flex items-center justify-center md:justify-start gap-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-6 h-6 text-yellow-300"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2z"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 22s8-5.5 8-12a8 8 0 10-16 0c0 6.5 8 12 8 12z"
+        />
+      </svg>
+      Alamat Sekolah
+    </h2>
 
-          <p className="text-sm md:text-base leading-relaxed text-gray-100 max-w-2xl mx-auto md:mx-0">
-            <b>SMK TI Bazma</b> berlokasi di
-            <br />
-            <span className="text-gray-200">
-              Jl. Raya Cibadak No. 99, Kec. Ciampea, Kabupaten Bogor, Jawa Barat
-              16620.
-            </span>
-            <br />
-          </p>
+    <p className="text-sm md:text-base leading-relaxed text-gray-100 max-w-2xl mx-auto md:mx-0">
+      <b>SMK TI Bazma</b> terletak di daerah yang asri dan strategis,
+      memberikan suasana belajar yang nyaman serta mendukung proses
+      pengembangan karakter dan kompetensi siswa.
+      <br />
+      <span className="block mt-3 text-gray-200">
+        📍 Jl. Raya Cibadak No. 99,<br />
+        Kec. Ciampea, Kabupaten Bogor,<br />
+        Jawa Barat 16620
+      </span>
+    </p>
 
-          {/* Garis dekoratif di bawah */}
-          <div className="mt-6 flex justify-center md:justify-start">
-            <div className="w-24 h-1 rounded-full bg-yellow-300"></div>
-          </div>
-        </div>
-      </section>
+    {/* Gambar maps */}
+    <div className="mt-6 w-full rounded-xl overflow-hidden shadow-lg">
+      <iframe
+        title="Lokasi SMK TI Bazma"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.582725644776!2d106.68614297499339!3d-6.574228493419177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69db2b478d2725%3A0xa31558d4689b78c5!2sIslamic%20Boarding%20School%20SMK%20TI%20BAZMA!5e0!3m2!1sen!2sid!4v1761753004550!5m2!1sen!2sid"
+        className="w-full h-64 md:h-80"
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+
+    {/* Garis dekoratif */}
+    <div className="mt-6 flex justify-center md:justify-start">
+      <div className="w-24 h-1 rounded-full bg-yellow-300"></div>
+    </div>
+  </div>
+</section>
+
+
     </div>
   );
 }

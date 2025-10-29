@@ -26,6 +26,7 @@ const PageFormPribadi: React.FC = () => {
     livingWith: "",
     phone: "",
     socialMedia: "",
+    livingWithCustom: "",
   });
 
   const numericFields = [
@@ -73,6 +74,7 @@ const PageFormPribadi: React.FC = () => {
       socialAid: "Bantuan Sosial",
       livingWith: "Tinggal Bersama",
       phone: "Nomor HP / WhatsApp",
+
       socialMedia: "Media Sosial",
     };
 
@@ -276,60 +278,65 @@ const PageFormPribadi: React.FC = () => {
                 placeholder="Alamat Lengkap"
                 value={formData.address}
                 onChange={handleChange}
-                className={`${inputClass} md:col-span-2 h-28 resize-none rounded-2xl`}
+                className={`${inputClass} md:col-span-2 resize-none`}
               ></textarea>
             </div>
           </section>
-{/* Sekolah Asal */}
-<section className="bg-white rounded-xl shadow-sm border overflow-hidden">
-  <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
-    Sekolah Asal
-  </h2>
-  <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-    <input
-      name="schoolOrigin"
-      placeholder="Nama Sekolah"
-      value={formData.schoolOrigin}
-      onChange={handleChange}
-      className={inputClass}
-    />
-    <input
-      name="graduationYear"
-      placeholder="Tahun Lulus"
-      value={formData.graduationYear}
-      onChange={handleChange}
-      className={inputClass}
-    />
-    <div className="md:col-span-2">
-      <input
-        name="npsn"
-        placeholder="NPSN Sekolah"
-        value={formData.npsn}
-        onChange={handleChange}
-        className={inputClass}
-      />
-      <p className="text-gray-500 text-xs mt-2 ml-2">
-        🔍 Belum tahu NPSN sekolah kamu? Cek di{" "}
-        <a
-          href="https://referensi.data.kemdikbud.go.id"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#1E3A8A] font-medium hover:underline"
-        >
-          referensi.data.kemdikbud.go.id
-        </a>
-      </p>
-      <ul className="text-gray-500 text-xs mt-1 ml-6 list-decimal">
-        <li>Buka link di atas (situs resmi Kemendikbud).</li>
-        <li>Pilih menu <strong>“Referensi → Sekolah”</strong>.</li>
-        <li>Pilih provinsi, kabupaten/kota, dan jenjang sekolah kamu.</li>
-        <li>Klik tombol <strong>“Tampilkan Data”</strong>.</li>
-        <li>Cari nama sekolah kamu, lalu salin kode NPSN-nya.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
+          {/* Sekolah Asal */}
+          <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
+            <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
+              Sekolah Asal
+            </h2>
+            <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                name="schoolOrigin"
+                placeholder="Nama Sekolah"
+                value={formData.schoolOrigin}
+                onChange={handleChange}
+                className={inputClass}
+              />
+              <input
+                name="graduationYear"
+                placeholder="Tahun Lulus"
+                value={formData.graduationYear}
+                onChange={handleChange}
+                className={inputClass}
+              />
+              <div className="md:col-span-2">
+                <input
+                  name="npsn"
+                  placeholder="NPSN Sekolah"
+                  value={formData.npsn}
+                  onChange={handleChange}
+                  className={inputClass}
+                />
+                <p className="text-gray-500 text-xs mt-2 ml-2">
+                  🔍 Belum tahu NPSN sekolah kamu? Cek di{" "}
+                  <a
+                    href="https://referensi.data.kemdikbud.go.id"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#1E3A8A] font-medium hover:underline"
+                  >
+                    referensi.data.kemdikbud.go.id
+                  </a>
+                </p>
+                <ul className="text-gray-500 text-xs mt-1 ml-6 list-decimal">
+                  <li>Buka link di atas (situs resmi Kemendikbud).</li>
+                  <li>
+                    Pilih menu <strong>“Referensi → Sekolah”</strong>.
+                  </li>
+                  <li>
+                    Pilih provinsi, kabupaten/kota, dan jenjang sekolah kamu.
+                  </li>
+                  <li>
+                    Klik tombol <strong>“Tampilkan Data”</strong>.
+                  </li>
+                  <li>Cari nama sekolah kamu, lalu salin kode NPSN-nya.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
 
           {/* Informasi Keluarga */}
           <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
@@ -376,17 +383,34 @@ const PageFormPribadi: React.FC = () => {
                   { value: "tidak", label: "Tidak" },
                 ]}
               />
-              <SelectWithIcon
-                name="livingWith"
-                value={formData.livingWith}
-                onChange={handleChange}
-                placeholder="Tinggal Bersama"
-                options={[
-                  { value: "orang-tua", label: "Orang Tua" },
-                  { value: "wali", label: "Wali" },
-                  { value: "sendiri", label: "Sendiri" },
-                ]}
-              />
+              {formData.livingWith !== "lainnya" ? (
+                <SelectWithIcon
+                  name="livingWith"
+                  value={formData.livingWith}
+                  onChange={handleChange}
+                  placeholder="Tinggal Bersama"
+                  options={[
+                    { value: "orang-tua", label: "Orang Tua" },
+                    { value: "wali", label: "Wali" },
+                    { value: "lainnya", label: "Lainnya" },
+                  ]}
+                />
+              ) : (
+                <div className="relative w-full">
+                  <input
+                    type="text"
+                    name="livingWithCustom"
+                    value={formData.livingWithCustom || ""}
+                    onChange={handleChange}
+                    placeholder="Sebutkan..."
+                    className="appearance-none w-full border border-gray-300 rounded-full px-4 py-3 pr-10 text-sm sm:text-base focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none bg-white placeholder:text-gray-500"
+                  />
+                  <ChevronDown
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+                    size={20}
+                  />
+                </div>
+              )}
             </div>
           </section>
 

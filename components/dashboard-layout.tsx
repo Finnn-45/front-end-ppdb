@@ -25,7 +25,6 @@ type NotificationItem = {
   // tambahkan field lain sesuai response backend
 };
 
-
 // Step Alur Pendaftaran
 const steps = [
   {
@@ -44,14 +43,19 @@ const steps = [
     inactiveImg: "/icons/1 (6).png",
   },
   {
+    name: "Wawancara",
+    activeImg: "/icons/1 (9).png",
+    inactiveImg: "/icons/1 (10).png",
+  },
+  {
     name: "Tes Psikotest",
     activeImg: "/icons/1 (7).png",
     inactiveImg: "/icons/1 (8).png",
   },
   {
-    name: "Wawancara",
-    activeImg: "/icons/1 (9).png",
-    inactiveImg: "/icons/1 (10).png",
+    name: "Home Visit",
+    activeImg: "/icons/1 (7).png",
+    inactiveImg: "/icons/1 (8).png",
   },
   {
     name: "Pengumuman",
@@ -69,7 +73,7 @@ export function DashboardLayout() {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
- 
+
   // --- Notifikasi states ---
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [loadingNotif, setLoadingNotif] = useState(false);
@@ -86,47 +90,46 @@ export function DashboardLayout() {
     router.push("/");
   };
 
-  
-const menuItems = [
-  { id: "dashboard", name: "Home", icon: Home },
-  { id: "pendaftaran", name: "Pendaftaran", icon: FileText },
-  { id: "pengumuman", name: "Pengumuman", icon: Megaphone },
-  { id: "bantuan", name: "Bantuan", icon: HelpCircle },
-];
+  const menuItems = [
+    { id: "dashboard", name: "Home", icon: Home },
+    { id: "pendaftaran", name: "Pendaftaran", icon: FileText },
+    { id: "pengumuman", name: "Pengumuman", icon: Megaphone },
+    { id: "bantuan", name: "Bantuan", icon: HelpCircle },
+  ];
 
-// Autoplay carousel
-useEffect(() => {
-  const timer = setInterval(() => {
-    setCurrentSlide((prev) => (prev + 1) % carouselItems.length);
-  }, 4000); // ganti setiap 4 detik
+  // Autoplay carousel
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselItems.length);
+    }, 4000); // ganti setiap 4 detik
 
-  return () => clearInterval(timer);
-}, []);
+    return () => clearInterval(timer);
+  }, []);
 
-// --- Carousel items ---
-const carouselItems = [
-  {
-    id: 1,
-    image: "/gambar2.png",
-    title: "Ujian Psikotest",
-    date: "20 - 25 April, 2025",
-    desc: "Calon siswa mengisi formulir pendaftaran online atau langsung di sekolah untuk memulai proses seleksi.",
-  },
-  {
-    id: 2,
-    image: "/gambar3.png",
-    title: "Tes Akademik",
-    date: "24 - 25 Januari, 2025",
-    desc: "Peserta mengikuti tes akademik untuk mengukur kemampuan dasar dan pengetahuan umum.",
-  },
-  {
-    id: 3,
-    image: "/gambar4.png",
-    title: "Pengumuman",
-    date: " 22 - 23 Mei, 2025",
-    desc: "Hasil seleksi diumumkan resmi melalui website SPMB SMK TI Bazma.",
-  },
-];
+  // --- Carousel items ---
+  const carouselItems = [
+    {
+      id: 1,
+      image: "/gambar2.png",
+      title: "Ujian Psikotest",
+      date: "20 - 25 April, 2025",
+      desc: "Calon siswa mengisi formulir pendaftaran online atau langsung di sekolah untuk memulai proses seleksi.",
+    },
+    {
+      id: 2,
+      image: "/gambar3.png",
+      title: "Tes Akademik",
+      date: "24 - 25 Januari, 2025",
+      desc: "Peserta mengikuti tes akademik untuk mengukur kemampuan dasar dan pengetahuan umum.",
+    },
+    {
+      id: 3,
+      image: "/gambar4.png",
+      title: "Pengumuman",
+      date: " 22 - 23 Mei, 2025",
+      desc: "Hasil seleksi diumumkan resmi melalui website SPMB SMK TI Bazma.",
+    },
+  ];
 
   const handleMenuClick = (menuId: string, idx: number) => {
     if (activeMenu === menuId) return;
@@ -378,55 +381,58 @@ const carouselItems = [
         </div>
       </div>
 
-    {/* Sidebar Mobile */}
-<div className="md:hidden fixed top-0 left-0 w-72 h-full bg-[#1E3A8A] text-white rounded-r-3xl z-[50] mobile-sidebar -translate-x-full flex flex-col justify-between">
-  {/* Header Logo + Close */}
-  <div>
-    <div className="p-5 flex items-center justify-between border-b border-blue-800/30">
-      <div className="flex items-center gap-3">
-        <div className="transform scale-75">
-          <SMKLogo className="w-8 h-8" />
-        </div>
+      {/* Sidebar Mobile */}
+      <div className="md:hidden fixed top-0 left-0 w-72 h-full bg-[#1E3A8A] text-white rounded-r-3xl z-[50] mobile-sidebar -translate-x-full flex flex-col justify-between">
+        {/* Header Logo + Close */}
         <div>
-          <h2 className="text-base font-bold leading-tight">SMK TI BAZMA</h2>
-          <p className="text-[11px] text-blue-200">Islamic Boarding School</p>
+          <div className="p-5 flex items-center justify-between border-b border-blue-800/30">
+            <div className="flex items-center gap-3">
+              <div className="transform scale-75">
+                <SMKLogo className="w-8 h-8" />
+              </div>
+              <div>
+                <h2 className="text-base font-bold leading-tight">
+                  SMK TI BAZMA
+                </h2>
+                <p className="text-[11px] text-blue-200">
+                  Islamic Boarding School
+                </p>
+              </div>
+            </div>
+            <button onClick={() => setIsSidebarOpen(false)}>
+              <X className="h-6 w-6 text-white hover:text-blue-200 transition-colors" />
+            </button>
+          </div>
+
+          {/* Menu Items */}
+          <div className="px-6 mt-6 space-y-3">
+            {menuItems.map((item, idx) => (
+              <button
+                key={item.id}
+                onClick={() => handleMenuClick(item.id, idx)}
+                className={`w-full flex items-center text-left font-poppins py-3 px-4 rounded-lg transition-all duration-300 ${
+                  activeMenu === item.id
+                    ? "bg-white text-[#1E3A8A]"
+                    : "text-white hover:bg-blue-700"
+                }`}
+              >
+                <item.icon className="mr-4 h-5 w-5" />
+                {item.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Footer Logout */}
+        <div className="px-6 pb-6 border-t border-blue-800/30">
+          <button
+            onClick={handleLogout}
+            className="w-full bg-white text-[#1E3A8A] hover:bg-gray-100 font-poppins rounded-xl py-3 font-medium shadow-md transition-all duration-300"
+          >
+            Logout
+          </button>
         </div>
       </div>
-      <button onClick={() => setIsSidebarOpen(false)}>
-        <X className="h-6 w-6 text-white hover:text-blue-200 transition-colors" />
-      </button>
-    </div>
-
-    {/* Menu Items */}
-    <div className="px-6 mt-6 space-y-3">
-      {menuItems.map((item, idx) => (
-        <button
-          key={item.id}
-          onClick={() => handleMenuClick(item.id, idx)}
-          className={`w-full flex items-center text-left font-poppins py-3 px-4 rounded-lg transition-all duration-300 ${
-            activeMenu === item.id
-              ? "bg-white text-[#1E3A8A]"
-              : "text-white hover:bg-blue-700"
-          }`}
-        >
-          <item.icon className="mr-4 h-5 w-5" />
-          {item.name}
-        </button>
-      ))}
-    </div>
-  </div>
-
-  {/* Footer Logout */}
-  <div className="px-6 pb-6 border-t border-blue-800/30">
-    <button
-      onClick={handleLogout}
-      className="w-full bg-white text-[#1E3A8A] hover:bg-gray-100 font-poppins rounded-xl py-3 font-medium shadow-md transition-all duration-300"
-    >
-      Logout
-    </button>
-  </div>
-</div>
-
 
       {/* Overlay Mobile */}
       {isSidebarOpen && (
@@ -658,7 +664,7 @@ const carouselItems = [
                 <div className="flex justify-center md:justify-start w-full md:w-1/3 mb-4 md:mb-0"></div>
                 <div className="flex flex-col items-center md:items-end text-center md:text-right w-full md:w-2/3">
                   <h1 className="text-2xl font-bold text-[#1E3A8A]">
-                    Selesksi Penerimaan Murid Baru
+                    Seleksi Penerimaan Murid Baru
                   </h1>
                   <p className="text-gray-600">
                     Daftarkan dirimu di sini. Semua informasi ada di sini.
@@ -843,12 +849,8 @@ const carouselItems = [
               )}
 
               {/* Alur Pendaftaran */}
-              <section className="mb-10">
+              <section className="mb-10 mt-6">
                 <div className="bg-white rounded-xl shadow-lg overflow-hidden p-6">
-                  <h2 className="text-lg font-semibold mb-10 text-center md:text-left">
-                    Alur Pendaftaran
-                  </h2>
-
                   {/* Versi desktop: deretan lurus */}
                   <div className="hidden md:flex relative justify-between items-start">
                     {steps.map((step, idx) => {
@@ -903,11 +905,19 @@ const carouselItems = [
                   </div>
 
                   {/* Versi mobile: grid 2 kolom */}
-                  <div className="grid grid-cols-2 gap-6 md:hidden">
+                  <div className="grid grid-cols-2 gap-6 md:hidden place-items-center">
                     {steps.map((step, idx) => {
                       const isActive = idx === 0;
+                      const isLastOdd =
+                        steps.length % 2 !== 0 && idx === steps.length - 1; // ganjil & elemen terakhir
+
                       return (
-                        <div key={idx} className="flex flex-col items-center">
+                        <div
+                          key={idx}
+                          className={`flex flex-col items-center ${
+                            isLastOdd ? "col-span-2 justify-self-center" : ""
+                          }`}
+                        >
                           <div className="relative">
                             <div
                               className={`absolute -top-2 -left-2 flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${
@@ -944,53 +954,51 @@ const carouselItems = [
               <section className="mt-8">
                 <div className="flex flex-col md:flex-row items-center justify-between">
                   <div>
-                    <h3 className="text-lg font-bold">Let’s Get Started!</h3>
+                    <h3 className="text-lg font-bold">Segera Daftar!</h3>
                     <p className="text-sm text-gray-600">
-                      Register now and become part of the next generation of
-                      excellence at SMK TI BAZMA.
+                      Ayo segera daftar ke SMK TI Bazma
                     </p>
                   </div>
                   <button
                     onClick={() => router.push("/page-form")}
                     className="mt-4 md:mt-0 inline-flex items-center gap-2 bg-[#1E3A8A] text-white px-5 py-2 rounded-full font-medium hover:bg-[#162d66] transition"
                   >
-                    Register Now →
+                    Klik Untuk mendaftar →
                   </button>
                 </div>
                 <div className="mt-4 border-b border-gray-300"></div>
               </section>
 
               {/* Aktivitas */}
-            <section className="mt-10">
-  <h1 className="text-lg font-semibold mb-4">
-    Rangkaian Seleksi Calon Peserta Didik Baru
-  </h1>
-  <div className="bg-white rounded-xl shadow overflow-hidden relative w-full">
-    <div
-      className="flex transition-transform duration-700 ease-in-out"
-      style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-    >
-      {carouselItems.map((item) => (
-        <div
-          key={item.id}
-          className="flex-shrink-0 w-full relative h-64"
-        >
-          <img
-            src={item.image}
-            alt={item.title}
-            className="w-full h-64 object-cover object-bottom" // 👈 Fokus ke bagian atas gambar
-          />
-          <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6 text-white">
-            <h3 className="text-2xl font-bold">{item.title}</h3>
-            <p className="text-sm">{item.date}</p>
-            <p className="mt-2 text-sm">{item.desc}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
+              <section className="mt-10">
+                <h1 className="text-lg font-semibold mb-4">
+                  Rangkaian Seleksi Calon Peserta Didik Baru
+                </h1>
+                <div className="bg-white rounded-xl shadow overflow-hidden relative w-full">
+                  <div
+                    className="flex transition-transform duration-700 ease-in-out"
+                    style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                  >
+                    {carouselItems.map((item) => (
+                      <div
+                        key={item.id}
+                        className="flex-shrink-0 w-full relative h-64"
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-64 object-cover object-bottom" // 👈 Fokus ke bagian atas gambar
+                        />
+                        <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6 text-white">
+                          <h3 className="text-2xl font-bold">{item.title}</h3>
+                          <p className="text-sm">{item.date}</p>
+                          <p className="mt-2 text-sm">{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
             </div>
           )}
           {activeMenu === "pendaftaran" && <PagePendaftaran />}
