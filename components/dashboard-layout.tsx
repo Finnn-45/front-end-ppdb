@@ -29,7 +29,7 @@ type NotificationItem = {
 const steps = [
   {
     name: "Pendaftaran",
-    activeImg: "/icons/1 (1).png",
+    activeImg: "/icons/1 (3).png",
     inactiveImg: "/icons/1 (2).png",
   },
   {
@@ -54,8 +54,8 @@ const steps = [
   },
   {
     name: "Home Visit",
-    activeImg: "/icons/1 (7).png",
-    inactiveImg: "/icons/1 (8).png",
+    activeImg: "/icons/1 (14).png",
+    inactiveImg: "/icons/1 (13).png",
   },
   {
     name: "Pengumuman",
@@ -348,11 +348,10 @@ export function DashboardLayout() {
                   // tidak return apapun, otomatis void
                 }}
                 onClick={() => handleMenuClick(item.id, idx)}
-                className={`w-full flex items-center text-left font-poppins py-3 px-6 transition-all duration-100 ${
-                  activeMenu === item.id
+                className={`w-full flex items-center text-left font-poppins py-3 px-6 transition-all duration-100 ${activeMenu === item.id
                     ? "text-[#1E3A8A] font-semibold"
                     : "text-white"
-                }`}
+                  }`}
               >
                 <item.icon className="mr-4 h-5 w-5" />
                 {item.name}
@@ -410,11 +409,10 @@ export function DashboardLayout() {
               <button
                 key={item.id}
                 onClick={() => handleMenuClick(item.id, idx)}
-                className={`w-full flex items-center text-left font-poppins py-3 px-4 rounded-lg transition-all duration-300 ${
-                  activeMenu === item.id
+                className={`w-full flex items-center text-left font-poppins py-3 px-4 rounded-lg transition-all duration-300 ${activeMenu === item.id
                     ? "bg-white text-[#1E3A8A]"
                     : "text-white hover:bg-blue-700"
-                }`}
+                  }`}
               >
                 <item.icon className="mr-4 h-5 w-5" />
                 {item.name}
@@ -874,11 +872,10 @@ export function DashboardLayout() {
                           {/* Icon dan nomor */}
                           <div className="relative z-10 inline-block">
                             <div
-                              className={`absolute -top-3 -left-3 flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${
-                                isActive
+                              className={`absolute -top-3 -left-3 flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${isActive
                                   ? "bg-green-500 text-white"
                                   : "bg-[#1E3A8A] text-white"
-                              }`}
+                                }`}
                             >
                               {idx + 1}
                             </div>
@@ -891,11 +888,10 @@ export function DashboardLayout() {
 
                           {/* Label */}
                           <p
-                            className={`mt-2 text-sm md:text-base ${
-                              isActive
+                            className={`mt-2 text-sm md:text-base ${isActive
                                 ? "font-semibold text-[#1E3A8A]"
                                 : "text-gray-600"
-                            }`}
+                              }`}
                           >
                             {step.name}
                           </p>
@@ -914,17 +910,15 @@ export function DashboardLayout() {
                       return (
                         <div
                           key={idx}
-                          className={`flex flex-col items-center ${
-                            isLastOdd ? "col-span-2 justify-self-center" : ""
-                          }`}
+                          className={`flex flex-col items-center ${isLastOdd ? "col-span-2 justify-self-center" : ""
+                            }`}
                         >
                           <div className="relative">
                             <div
-                              className={`absolute -top-2 -left-2 flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${
-                                isActive
+                              className={`absolute -top-2 -left-2 flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${isActive
                                   ? "bg-green-500 text-white"
                                   : "bg-[#1E3A8A] text-white"
-                              }`}
+                                }`}
                             >
                               {idx + 1}
                             </div>
@@ -935,11 +929,10 @@ export function DashboardLayout() {
                             />
                           </div>
                           <p
-                            className={`text-xs sm:text-sm mt-2 text-center ${
-                              isActive
+                            className={`text-xs sm:text-sm mt-2 text-center ${isActive
                                 ? "font-semibold text-[#1E3A8A]"
                                 : "text-gray-600"
-                            }`}
+                              }`}
                           >
                             {step.name}
                           </p>
@@ -954,9 +947,9 @@ export function DashboardLayout() {
               <section className="mt-8">
                 <div className="flex flex-col md:flex-row items-center justify-between">
                   <div>
-                    <h3 className="text-lg font-bold">Segera Daftar!</h3>
+                    <h3 className="text-lg font-bold">🚀 Segera Daftar Sekarang!</h3>
                     <p className="text-sm text-gray-600">
-                      Ayo segera daftar ke SMK TI Bazma
+                      Gabung bareng SMK TI Bazma dan jadi bagian dari generasi digital yang siap bersaing!
                     </p>
                   </div>
                   <button
