@@ -60,26 +60,29 @@ const PageFormPribadi: React.FC = () => {
     const emptyFields: string[] = [];
     const fieldLabels: Record<string, string> = {
       fullName: "Nama Lengkap",
-      nisn: "NISN",
+      nisn: "NISN (hanya angka)",
       nik: "NIK",
       birthPlace: "Tempat Lahir",
-      birthDate: "Tanggal Lahir",
-      address: "Alamat Lengkap",
+      birthDate: "Tanggal Lahir (mm/dd/yyyy)",
+      address: "Alamat Rumah Lengkap",
       schoolOrigin: "Nama Sekolah",
-      graduationYear: "Tahun Lulus",
-      npsn: "NPSN Sekolah",
-      childOrder: "Anak Ke-",
+      graduationYear: "Tahun Lulus (hanya angka)",
+      npsn: "NPSN Sekolah (hanya angka)",
+      childOrder: "Anak ke-",
       parentStatus: "Kondisi Orang Tua",
       familyStatus: "Status Keluarga",
-      socialAid: "Bantuan Sosial",
+      socialAid: "Menerima Bantuan Sosial?",
       livingWith: "Tinggal Bersama",
       phone: "Nomor HP / WhatsApp",
-
       socialMedia: "Media Sosial",
+      livingWithCustom: "Tinggal Bersama (Lainnya)",
     };
 
     for (const [key, value] of Object.entries(formData)) {
       if ((value as string).trim() === "") {
+        // khusus untuk livingWithCustom, hanya wajib kalau livingWith = "lainnya"
+        if (key === "livingWithCustom" && formData.livingWith !== "lainnya")
+          continue;
         emptyFields.push(fieldLabels[key]);
       }
     }
@@ -120,32 +123,35 @@ const PageFormPribadi: React.FC = () => {
       confirmButtonColor: "#1E3A8A",
       showClass: { popup: "animate__animated animate__fadeInDown" },
       hideClass: { popup: "animate__animated animate__fadeOutUp" },
-    }).then(() => router.push("/page-form/page-2"));
+    }).then(() => router.push("/page-form/page-prestasi"));
   };
 
   const inputClass =
     "w-full border border-gray-300 rounded-full px-4 py-3 text-sm sm:text-base focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none bg-white placeholder:text-gray-500";
 
-  // 🔹 Select dropdown
+  // 🔹 Select dropdown (dibenerin biar full lebar)
+  // 🔹 Select dropdown (fix tampilan biar sama kaya input biasa, tanpa double border)
   const SelectWithIcon = ({
     name,
     value,
     onChange,
     options,
     placeholder,
+    className = "",
   }: {
     name: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     options: { value: string; label: string }[];
     placeholder: string;
+    className?: string;
   }) => (
-    <div className="relative w-full">
+    <div className={`relative w-full ${className}`}>
       <select
         name={name}
         value={value}
         onChange={onChange}
-        className="appearance-none w-full border border-gray-300 rounded-full px-4 py-3 pr-10 text-sm sm:text-base focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none bg-white"
+        className="appearance-none w-full border border-gray-300 rounded-full px-4 py-3 pr-10 text-sm sm:text-base focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none bg-white placeholder:text-gray-500"
       >
         <option value="">{placeholder}</option>
         {options.map((opt) => (
@@ -282,6 +288,7 @@ const PageFormPribadi: React.FC = () => {
               ></textarea>
             </div>
           </section>
+
           {/* Sekolah Asal */}
           <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
@@ -324,12 +331,15 @@ const PageFormPribadi: React.FC = () => {
                 <ul className="text-gray-500 text-xs mt-1 ml-6 list-decimal">
                   <li>Buka link di atas (situs resmi Kemendikbud).</li>
                   <li>
-                    Pilih menu <strong>“Referensi → Sekolah”</strong>.
+                    {" "}
+                    Pilih menu <strong>“Referensi → Sekolah”</strong>.{" "}
                   </li>
                   <li>
-                    Pilih provinsi, kabupaten/kota, dan jenjang sekolah kamu.
+                    {" "}
+                    Pilih provinsi, kabupaten/kota, dan jenjang sekolah kamu.{" "}
                   </li>
                   <li>
+                    {" "}
                     Klik tombol <strong>“Tampilkan Data”</strong>.
                   </li>
                   <li>Cari nama sekolah kamu, lalu salin kode NPSN-nya.</li>
@@ -358,8 +368,8 @@ const PageFormPribadi: React.FC = () => {
                 placeholder="Kondisi Orang Tua"
                 options={[
                   { value: "lengkap", label: "Lengkap" },
-                  { value: "ayah-meninggal", label: "Ayah Meninggal" },
-                  { value: "ibu-meninggal", label: "Ibu Meninggal" },
+                  { value: "ayah-meninggal", label: "Yatim" },
+                  { value: "ibu-meninggal", label: "Piatu" },
                   { value: "yatim-piatu", label: "Yatim Piatu" },
                 ]}
               />
@@ -383,33 +393,45 @@ const PageFormPribadi: React.FC = () => {
                   { value: "tidak", label: "Tidak" },
                 ]}
               />
-              {formData.livingWith !== "lainnya" ? (
+              {formData.livingWith === "lainnya" ? (
+                <input
+                  name="livingWithCustom"
+                  placeholder="Sebutkan siapa kamu tinggal bersama..."
+                  value={formData.livingWithCustom}
+                  onChange={handleChange}
+                  onBlur={() => {
+                    // Balik ke dropdown kalau dikosongin
+                    if (formData.livingWithCustom.trim() === "") {
+                      handleChange({
+                        target: { name: "livingWith", value: "" },
+                      });
+                    }
+                  }}
+                  className={`${inputClass} md:col-span-2 bg-blue-50 border-blue-300 animate-fadeIn`}
+                  autoFocus
+                />
+              ) : (
                 <SelectWithIcon
                   name="livingWith"
                   value={formData.livingWith}
-                  onChange={handleChange}
+                  onChange={(e: any) => {
+                    handleChange(e);
+                    if (e.target.value === "lainnya") {
+                      // Kosongin input custom saat pilih lainnya
+                      handleChange({
+                        target: { name: "livingWithCustom", value: "" },
+                      });
+                    }
+                  }}
                   placeholder="Tinggal Bersama"
                   options={[
-                    { value: "orang-tua", label: "Orang Tua" },
+                    { value: "orangtua", label: "Orang Tua" },
                     { value: "wali", label: "Wali" },
+                    { value: "sendiri", label: "Sendiri" },
                     { value: "lainnya", label: "Lainnya" },
                   ]}
+                  className="md:col-span-2"
                 />
-              ) : (
-                <div className="relative w-full">
-                  <input
-                    type="text"
-                    name="livingWithCustom"
-                    value={formData.livingWithCustom || ""}
-                    onChange={handleChange}
-                    placeholder="Sebutkan..."
-                    className="appearance-none w-full border border-gray-300 rounded-full px-4 py-3 pr-10 text-sm sm:text-base focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none bg-white placeholder:text-gray-500"
-                  />
-                  <ChevronDown
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-                    size={20}
-                  />
-                </div>
               )}
             </div>
           </section>
@@ -428,11 +450,14 @@ const PageFormPribadi: React.FC = () => {
                 className={inputClass}
               />
               <input
+                type="url"
                 name="socialMedia"
-                placeholder="Instagram / Facebook"
+                placeholder="Masukkan link sosial media kamu di sini"
                 value={formData.socialMedia}
                 onChange={handleChange}
                 className={inputClass}
+                pattern="https?://.+"
+                title="Masukkan URL yang valid, misalnya: https://instagram.com/username"
               />
             </div>
           </section>

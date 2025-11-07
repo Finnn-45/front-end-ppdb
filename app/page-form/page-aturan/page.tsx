@@ -16,7 +16,7 @@ const PageFormAturan: React.FC = () => {
   };
 
   const handleBack = () => {
-    router.push("/page-form/page-5");
+    router.push("/page-form/page-uploadberkas");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -71,7 +71,7 @@ const PageFormAturan: React.FC = () => {
       confirmButtonColor: "#1E3A8A",
       showClass: { popup: "animate__animated animate__fadeInDown" },
       hideClass: { popup: "animate__animated animate__fadeOutUp" },
-    }).then(() => router.push("/page-form/page-7"));
+    }).then(() => router.push("/page-form/page-terimakasih"));
   };
 
   const handleAnswerChange = (index: number, value: string) => {
@@ -80,29 +80,33 @@ const PageFormAturan: React.FC = () => {
     setAnswers(newAnswers);
   };
 
+  // 🟦 Pernyataan udah disamain persis seperti versi "Section Aturan Sekolah"
   const pernyataanList = [
     `Saya dengan sungguh-sungguh menyatakan bahwa:
 1. Seluruh data dan dokumen yang saya lampirkan dalam berkas pendaftaran PPDB SMK TI BAZMA TA 2025-2026 adalah benar;
 2. Saya mendukung anak/tanggungan saya untuk mengikuti seluruh rangkaian seleksi PPDB SMK TI BAZMA yang telah ditetapkan;
-3. Jika anak/tanggungan saya diterima, saya memberi izin untuk tinggal di asrama selama masa pendidikan.`,
+3. Jika anak/tanggungan saya diterima, saya memberi izin untuk tinggal di asrama selama masa pendidikan.
+(pilihan Ya, atau Tidak)`,
     `Saya dengan sungguh-sungguh menyatakan bahwa:
 1. Saya bersedia mematuhi seluruh aturan, tata tertib, dan kebijakan yang berlaku di SMK TI BAZMA;
-2. Saya memahami bahwa pelanggaran terhadap aturan dapat mengakibatkan sanksi sesuai ketentuan sekolah.`,
+2. Saya memahami bahwa pelanggaran terhadap aturan dapat mengakibatkan sanksi sesuai ketentuan sekolah.
+(pilihan Ya, atau Tidak)`,
     `Saya dengan sungguh-sungguh menyatakan bahwa:
 1. Semua informasi yang saya berikan adalah benar;
-2. Apabila dibutuhkan, saya bersedia memberikan dokumen tambahan untuk melengkapi data pendaftaran.`,
+2. Apabila dibutuhkan, saya bersedia memberikan dokumen tambahan untuk melengkapi data pendaftaran.
+(pilihan Ya, atau Tidak)`,
   ];
 
   return (
     <>
-       {/* 🔵 HEADER DENGAN GRADIENT BIRU & PETA INDONESIA */}
+      {/* 🔵 HEADER DENGAN GRADIENT BIRU & PETA INDONESIA */}
       <header className="relative h-64 md:h-72 overflow-hidden">
         <img
           src="/bck.png"
           alt="Background Indonesia"
           className="absolute inset-0 w-full h-full object-cover opacity-85"
         />
-       <div className="absolute inset-0 bg-gradient-to-b from-[#1E3A8A]/70 via-[#1E3A8A]/10 to-white"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1E3A8A]/70 via-[#1E3A8A]/10 to-white"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
           <h1 className="text-[#EAF0FF] text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">
             Formulir Pendaftaran Calon Siswa
@@ -113,7 +117,7 @@ const PageFormAturan: React.FC = () => {
         </div>
       </header>
 
-      {/* 🔷 FORM CONTAINER (jarak dirapetin dari header) */}
+      {/* 🔷 FORM CONTAINER */}
       <div className="w-full max-w-6xl mx-auto bg-gray-50 rounded-xl p-6 sm:p-10 shadow-sm animate__animated animate__fadeInUp animate__slow mt-6">
         {/* Header */}
         <div className="text-center mb-8">
@@ -123,17 +127,6 @@ const PageFormAturan: React.FC = () => {
 
           {/* Stepper */}
           <div className="flex justify-center items-center flex-wrap gap-4">
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-semibold text-sm sm:text-base">
-                4
-              </div>
-              <p className="mt-1 text-xs sm:text-sm font-medium text-gray-500 text-center">
-                Rumah Tinggal
-              </p>
-            </div>
-
-            <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
-
             <div className="flex flex-col items-center">
               <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-semibold text-sm sm:text-base">
                 5
@@ -146,8 +139,19 @@ const PageFormAturan: React.FC = () => {
             <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
 
             <div className="flex flex-col items-center">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-[#1E3A8A] text-white font-semibold text-sm sm:text-base">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-semibold text-sm sm:text-base">
                 6
+              </div>
+              <p className="mt-1 text-xs sm:text-sm font-medium text-gray-500 text-center">
+                Upload Berkas
+              </p>
+            </div>
+
+            <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
+
+            <div className="flex flex-col items-center">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-[#1E3A8A] text-white font-semibold text-sm sm:text-base">
+                7
               </div>
               <p className="mt-1 text-xs sm:text-sm font-medium text-[#1E3A8A] text-center">
                 Aturan Sekolah
@@ -156,9 +160,9 @@ const PageFormAturan: React.FC = () => {
           </div>
         </div>
 
-        {/* Judul Tengah */}
+        {/* 🟩 Judul Tengah */}
         <div className="bg-[#1E3A8A] text-white rounded-t-lg text-center py-3 mb-0 font-semibold text-lg sm:text-xl">
-          Pernyataan dan Kesediaan Mengikuti Aturan SMK TI BAZMA
+          Section Aturan Sekolah
         </div>
 
         {/* 🧾 Catatan */}
@@ -171,7 +175,7 @@ const PageFormAturan: React.FC = () => {
           </p>
         </div>
 
-        {/* Accordion Section */}
+        {/* 🧩 Accordion Pernyataan */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {pernyataanList.map((text, index) => (
             <div
@@ -223,7 +227,7 @@ const PageFormAturan: React.FC = () => {
             </div>
           ))}
 
-          {/* Footer Buttons */}
+          {/* 🔘 Tombol Navigasi */}
           <div className="flex flex-col sm:flex-row justify-between mt-8 gap-3">
             <button
               type="button"
@@ -237,7 +241,7 @@ const PageFormAturan: React.FC = () => {
               type="submit"
               className="w-full sm:w-auto bg-[#1E3A8A] text-white font-medium px-6 py-2 rounded-full hover:bg-[#162d66] transition"
             >
-              Selanjutnya
+              Selesai
             </button>
           </div>
         </form>

@@ -129,7 +129,7 @@ const PageFormPrestasi: React.FC = () => {
       confirmButtonColor: "#1E3A8A",
       showClass: { popup: "animate__animated animate__fadeInDown" },
       hideClass: { popup: "animate__animated animate__fadeOutUp" },
-    }).then(() => router.push("/page-form/page-3"));
+    }).then(() => router.push("/page-form/page-orangtua"));
   };
 
   const handleBack = () => router.push("/page-form");
@@ -213,13 +213,13 @@ const PageFormPrestasi: React.FC = () => {
                         Mata Pelajaran
                       </th>
                       <th className="w-[20%] py-2 text-center px-2">
-                        Semester 3
+                        Nilai Semester 3
                       </th>
                       <th className="w-[20%] py-2 text-center px-2">
-                        Semester 4
+                        Nilai Semester 4
                       </th>
                       <th className="w-[20%] py-2 text-center px-2">
-                        Semester 5
+                       NIlai Semester 5
                       </th>
                     </tr>
                   </thead>

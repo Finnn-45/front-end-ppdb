@@ -21,7 +21,7 @@ const PageFormUpload: React.FC = () => {
     { name: "sktm", label: "Surat Keterangan Tidak Mampu (SKTM)" },
 
     { name: "ss_ig", label: "Screenshot Follow IG @smktibazma" },
-    { name: "rekomendasi", label: "Surat Rekomendasi Guru SMP" },
+
     { name: "kk", label: "Kartu Keluarga (KK)" },
     { name: "foto", label: "Pas Foto (Berwarna)" },
     { name: "kip", label: "Sertakan Bukti KIP" },
@@ -63,7 +63,7 @@ const PageFormUpload: React.FC = () => {
     }
   };
 
-  const handleBack = () => router.push("/page-form/page-6");
+  const handleBack = () => router.push("/page-form/page-kesehatan");
 
   const handleNext = () => {
     const emptyFiles = requiredFiles
@@ -97,7 +97,7 @@ const PageFormUpload: React.FC = () => {
       text: "Terima kasih, semua file berhasil diunggah.",
       confirmButtonText: "Lanjutkan",
       confirmButtonColor: "#1E3A8A",
-    }).then(() => router.push("/page-form/page-8"));
+    }).then(() => router.push("/page-form/page-aturan"));
   };
 
   const renderButton = (label: string, name: string) => {
@@ -173,15 +173,15 @@ const PageFormUpload: React.FC = () => {
 
           <div className="flex justify-center items-center flex-wrap gap-4">
             {[
+              { label: "Data Rumah ", step: 4 },
               { label: "Data Kesehatan", step: 5 },
-              { label: "Aturan Sekolah", step: 6 },
-              { label: "Upload", step: 7 },
+              { label: "Upload Berkas", step: 6 },
             ].map((item, idx) => (
               <React.Fragment key={idx}>
                 <div className="flex flex-col items-center">
                   <div
                     className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold ${
-                      item.step === 7
+                      item.step === 6
                         ? "bg-[#1E3A8A] text-white"
                         : "bg-gray-300 text-gray-600"
                     }`}
@@ -234,11 +234,6 @@ const PageFormUpload: React.FC = () => {
           {requiredFiles.map((f) => (
             <div
               key={f.name}
-              className={`${
-                f.name === "rekomendasi-surat"
-                  ? "sm:col-span-2 flex justify-center"
-                  : ""
-              }`}
             >
               <div className={f.name === "" ? "w-full sm:w-1/2" : "w-full"}>
                 {renderButton(f.label, f.name)}
@@ -328,7 +323,7 @@ const PageFormUpload: React.FC = () => {
             onClick={handleNext}
             className="w-full sm:w-auto bg-[#1E3A8A] text-white font-medium px-6 py-2 rounded-full hover:bg-[#162d66] transition"
           >
-            Selesai
+            Selanjutnya
           </button>
         </div>
       </div>

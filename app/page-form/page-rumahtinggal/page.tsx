@@ -137,10 +137,10 @@ export default function PageFormRumah() {
       text: "Form Data Rumah kamu berhasil disimpan.",
       confirmButtonText: "Lanjutkan",
       confirmButtonColor: "#1E3A8A",
-    }).then(() => router.push("/page-form/page-5"));
+    }).then(() => router.push("/page-form/page-kesehatan"));
   };
 
-  const handleBack = () => router.push("/page-form/page-3");
+  const handleBack = () => router.push("/page-form/page-orangtua");
 
   // Komponen select dengan ikon
   const SelectWithIcon = ({
@@ -192,7 +192,7 @@ export default function PageFormRumah() {
             Formulir Pendaftaran Calon Siswa
           </h1>
           <p className="mt-3 text-[#949494] text-base sm:text-lg md:text-xl font-medium opacity-95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.25)]">
-            Rumah Tinggal
+            Data Rumah
           </p>
         </div>
       </header>
@@ -226,7 +226,7 @@ export default function PageFormRumah() {
                       ? "Data Prestasi"
                       : num === 3
                       ? "Data Orang Tua / Wali"
-                      : "Rumah Tinggal"}
+                      : "Data Rumah"}
                   </p>
                 </div>
                 {i < 2 && (
@@ -242,7 +242,7 @@ export default function PageFormRumah() {
           {/* Data Rumah */}
           <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
-              Data Rumah Tinggal
+              Data Rumah 
             </h2>
 
             <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -326,7 +326,15 @@ export default function PageFormRumah() {
                     placeholder="Tuliskan status kepemilikan kendaraan..."
                     value={formData.statusKendaraan}
                     onChange={handleChange}
+                    onBlur={() => {
+                      if (formData.statusKendaraan.trim() === "")
+                        setIsLainnya((prev) => ({
+                          ...prev,
+                          statusKendaraan: false,
+                        }));
+                    }}
                     className={`${inputClass} bg-blue-50 border-blue-300 animate-fadeIn`}
+                    autoFocus
                   />
                 )}
               </div>
@@ -362,7 +370,15 @@ export default function PageFormRumah() {
                     placeholder="Tuliskan status kepemilikan harta..."
                     value={formData.statusHarta}
                     onChange={handleChange}
+                    onBlur={() => {
+                      if (formData.statusHarta.trim() === "")
+                        setIsLainnya((prev) => ({
+                          ...prev,
+                          statusHarta: false,
+                        }));
+                    }}
                     className={`${inputClass} bg-blue-50 border-blue-300 animate-fadeIn`}
+                    autoFocus
                   />
                 )}
               </div>
@@ -399,7 +415,12 @@ export default function PageFormRumah() {
                     placeholder="Tuliskan sumber air lainnya..."
                     value={formData.sumberAir}
                     onChange={handleChange}
+                    onBlur={() => {
+                      if (formData.sumberAir.trim() === "")
+                        setIsLainnya((prev) => ({ ...prev, sumberAir: false }));
+                    }}
                     className={`${inputClass} bg-blue-50 border-blue-300 animate-fadeIn`}
+                    autoFocus
                   />
                 )}
               </div>

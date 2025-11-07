@@ -10,28 +10,28 @@ interface KesehatanForm {
   tinggiBadan: string;
   beratBadan: string;
   penyakitMenular: string;
-  penyakitAlergi: string;
-  penyakitAlergiLainnya: string;
-  pengobatan: string;
+  penyakitNonMenular: string;
   golonganDarah: string;
+  kesehatanMental: string;
   butaWarna: string;
-  sedangPengobatan: string;
   perokok: string;
 }
 
 const PageFormKesehatan: React.FC = () => {
   const router = useRouter();
-  const [isAlergiLainnya, setIsAlergiLainnya] = useState(false);
+
+  // State untuk input dan mode "lainnya"
+  const [isMenularLainnya, setIsMenularLainnya] = useState(false);
+  const [isNonMenularLainnya, setIsNonMenularLainnya] = useState(false);
+
   const [formData, setFormData] = useState<KesehatanForm>({
     tinggiBadan: "",
     beratBadan: "",
     penyakitMenular: "",
-    penyakitAlergi: "",
-    penyakitAlergiLainnya: "",
-    pengobatan: "",
+    penyakitNonMenular: "",
     golonganDarah: "",
+    kesehatanMental: "",
     butaWarna: "",
-    sedangPengobatan: "",
     perokok: "",
   });
 
@@ -40,7 +40,7 @@ const PageFormKesehatan: React.FC = () => {
   const selectClass =
     "w-full border border-gray-300 rounded-full px-4 py-3 text-sm sm:text-base bg-white focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none appearance-none pr-10";
 
-  // 🔹 Handle Input Change
+  // 🔹 Fungsi umum ubah data form
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -48,26 +48,31 @@ const PageFormKesehatan: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 🔹 Handle Select Alergi (khusus opsi "lainnya")
-  const handleSelectAlergi = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  // 🔹 Menular: ubah ke input kalau "lainnya"
+  const handleSelectMenular = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     if (value === "lainnya") {
-      setIsAlergiLainnya(true);
-      setFormData((prev) => ({
-        ...prev,
-        penyakitAlergi: "",
-        penyakitAlergiLainnya: "",
-      }));
+      setIsMenularLainnya(true);
+      setFormData((prev) => ({ ...prev, penyakitMenular: "" }));
     } else {
-      setIsAlergiLainnya(false);
-      setFormData((prev) => ({
-        ...prev,
-        penyakitAlergi: value,
-        penyakitAlergiLainnya: "",
-      }));
+      setIsMenularLainnya(false);
+      setFormData((prev) => ({ ...prev, penyakitMenular: value }));
     }
   };
 
+  // 🔹 Non-Menular: ubah ke input kalau "lainnya"
+  const handleSelectNonMenular = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    if (value === "lainnya") {
+      setIsNonMenularLainnya(true);
+      setFormData((prev) => ({ ...prev, penyakitNonMenular: "" }));
+    } else {
+      setIsNonMenularLainnya(false);
+      setFormData((prev) => ({ ...prev, penyakitNonMenular: value }));
+    }
+  };
+
+  // 🔹 Komponen dropdown dengan ikon
   const SelectWithIcon = ({
     name,
     value,
@@ -102,25 +107,21 @@ const PageFormKesehatan: React.FC = () => {
     </div>
   );
 
-  // 🔹 Validasi Form
+  // 🔹 Validasi isi form
   const validateForm = () => {
     const labels: Record<keyof KesehatanForm, string> = {
       tinggiBadan: "Tinggi Badan",
       beratBadan: "Berat Badan",
       penyakitMenular: "Penyakit Menular",
-      penyakitAlergi: "Penyakit / Alergi",
-      penyakitAlergiLainnya: "Penyakit / Alergi (Lainnya)",
-      pengobatan: "Status Pengobatan",
+      penyakitNonMenular: "Penyakit Non-Menular / Alergi",
       golonganDarah: "Golongan Darah",
+      kesehatanMental: "Riwayat Kesehatan Mental",
       butaWarna: "Kondisi Buta Warna",
-      sedangPengobatan: "Sedang Dalam Pengobatan",
       perokok: "Status Merokok",
     };
 
     const emptyFields: string[] = [];
-
     (Object.keys(formData) as (keyof KesehatanForm)[]).forEach((key) => {
-      if (key === "penyakitAlergiLainnya" && !isAlergiLainnya) return;
       if (!formData[key] || formData[key].trim() === "") {
         emptyFields.push(labels[key]);
       }
@@ -129,7 +130,7 @@ const PageFormKesehatan: React.FC = () => {
     return emptyFields;
   };
 
-  // 🔹 Submit Form
+  // 🔹 Submit form
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const emptyFields = validateForm();
@@ -138,18 +139,18 @@ const PageFormKesehatan: React.FC = () => {
         icon: "warning",
         title: "Data Belum Lengkap!",
         html: `<p class="mb-2">Lengkapi kolom berikut:</p>
-          <ul style="text-align:left; display:inline-block;">
-            ${emptyFields.map((f) => `<li>• ${f}</li>`).join("")}
-          </ul>`,
+        <ul style="text-align:left; display:inline-block;">
+          ${emptyFields.map((f) => `<li>• ${f}</li>`).join("")}
+        </ul>`,
         confirmButtonText: "Oke, isi sekarang",
         confirmButtonColor: "#1E3A8A",
         background: "#f9fafb",
         color: "#1E293B",
         showClass: { popup: "animate__animated animate__shakeX" },
-        hideClass: { popup: "animate__animated animate__fadeOutUp" },
       });
       return;
     }
+
     Swal.fire({
       title: "Data Tersimpan!",
       text: "Form kesehatan kamu berhasil disimpan.",
@@ -158,14 +159,14 @@ const PageFormKesehatan: React.FC = () => {
       confirmButtonColor: "#1E3A8A",
       showClass: { popup: "animate__animated animate__fadeInDown" },
       hideClass: { popup: "animate__animated animate__fadeOutUp" },
-    }).then(() => router.push("/page-form/page-6"));
+    }).then(() => router.push("/page-form/page-uploadberkas"));
   };
 
-  const handleBack = () => router.push("/page-form/page-4");
+  const handleBack = () => router.push("/page-form/page-rumahtinggal");
 
   return (
     <>
-      {/* HEADER */}
+       {/* HEADER */}
       <header className="relative h-64 md:h-72 overflow-hidden">
         <img
           src="/bck.png"
@@ -212,7 +213,7 @@ const PageFormKesehatan: React.FC = () => {
                     {num === 3
                       ? "Data Orangtua / Wali"
                       : num === 4
-                      ? "Rumah Tinggal"
+                      ? "Data Rumah"
                       : "Data kesehatan"}
                   </p>
                 </div>
@@ -231,104 +232,136 @@ const PageFormKesehatan: React.FC = () => {
             </h2>
             <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Tinggi & Berat */}
-              <div className="flex flex-col md:flex-row gap-4 md:col-span-2">
-                <div className="relative flex-1">
-                  <input
-                    type="number"
-                    name="tinggiBadan"
-                    placeholder="Tinggi Badan"
-                    value={formData.tinggiBadan}
-                    onChange={handleChange}
-                    className={`${inputClass} pr-10`}
-                    min={0}
-                  />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">
-                    cm
-                  </span>
-                </div>
-                <div className="relative flex-1">
-                  <input
-                    type="number"
-                    name="beratBadan"
-                    placeholder="Berat Badan"
-                    value={formData.beratBadan}
-                    onChange={handleChange}
-                    className={`${inputClass} pr-10`}
-                    min={0}
-                  />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">
-                    kg
-                  </span>
-                </div>
+              <div className="relative">
+                <input
+                  type="number"
+                  name="tinggiBadan"
+                  placeholder="Tinggi Badan (cm)"
+                  value={formData.tinggiBadan}
+                  onChange={handleChange}
+                  className={inputClass}
+                  min={0}
+                />
+              </div>
+              <div className="relative">
+                <input
+                  type="number"
+                  name="beratBadan"
+                  placeholder="Berat Badan (kg)"
+                  value={formData.beratBadan}
+                  onChange={handleChange}
+                  className={inputClass}
+                  min={0}
+                />
               </div>
 
-
-              {/* Alergi */}
-              {!isAlergiLainnya ? (
+              {/* Penyakit Menular */}
+              {!isMenularLainnya ? (
                 <SelectWithIcon
-                  name="penyakitAlergi"
-                  value={formData.penyakitAlergi}
-                  onChange={handleSelectAlergi}
-                  placeholder="Penyakit / Alergi"
+                  name="penyakitMenular"
+                  value={formData.penyakitMenular}
+                  onChange={handleSelectMenular}
+                  placeholder="Penyakit Menular"
                   options={[
-                    { value: "asma", label: "Asma" },
-                    { value: "alergi", label: "Alergi" },
-                    { value: "TBC", label: "TBC " },
+                    { value: "tbc", label: "TBC" },
+                    { value: "hiv", label: "HIV/AIDS" },
+                    { value: "scabies", label: "Scabies" },
                     { value: "lainnya", label: "Lainnya" },
                   ]}
                 />
               ) : (
                 <input
-                  type="text"
-                  name="penyakitAlergiLainnya"
-                  placeholder="Tuliskan penyakit/alergi lainnya"
-                  value={formData.penyakitAlergiLainnya}
+                  name="penyakitMenular"
+                  placeholder="Tuliskan penyakit menular lainnya"
+                  value={formData.penyakitMenular}
                   onChange={handleChange}
-                  className={`${inputClass} animate-fadeIn`}
+                  onBlur={() => {
+                    if (formData.penyakitMenular.trim() === "")
+                      setIsMenularLainnya(false);
+                  }}
+                  className={inputClass}
+                  autoFocus
                 />
               )}
 
-              {/* Select lainnya */}
-              {[
-                "pengobatan",
-                "golonganDarah",
-                "butaWarna",
-                "perokok",
-              ].map((key) => {
-                const options: { value: string; label: string }[] =
-                  key === "pengobatan" || key === "sedangPengobatan"
-                    ? [
-                        { value: "ya", label: "Ya" },
-                        { value: "tidak", label: "Tidak" },
-                      ]
-                    : key === "golonganDarah"
-                    ? [
-                        { value: "A", label: "A" },
-                        { value: "B", label: "B" },
-                        { value: "AB", label: "AB" },
-                        { value: "O", label: "O" },
-                      ]
-                    : [
-                        { value: "ya", label: "Ya" },
-                        { value: "tidak", label: "Tidak" },
-                      ];
-                const placeholderMap: Record<string, string> = {
-                  pengobatan: "Apakah sedang dalam pengobatan?",
-                  golonganDarah: "Golongan Darah",
-                  butaWarna: "Apakah Anda Buta Warna?",
-                  perokok: "Apakah Anda Perokok?",
-                };
-                return (
-                  <SelectWithIcon
-                    key={key}
-                    name={key}
-                    value={formData[key as keyof KesehatanForm]}
-                    onChange={handleChange}
-                    options={options}
-                    placeholder={placeholderMap[key]}
-                  />
-                );
-              })}
+              {/* Penyakit Non-Menular */}
+              {!isNonMenularLainnya ? (
+                <SelectWithIcon
+                  name="penyakitNonMenular"
+                  value={formData.penyakitNonMenular}
+                  onChange={handleSelectNonMenular}
+                  placeholder="Penyakit Non-Menular / Alergi"
+                  options={[
+                    { value: "asma", label: "Asma" },
+                    { value: "alergi", label: "Alergi" },
+                    { value: "lainnya", label: "Lainnya" },
+                  ]}
+                />
+              ) : (
+                <input
+                  name="penyakitNonMenular"
+                  placeholder="Tuliskan penyakit non-menular / alergi lainnya"
+                  value={formData.penyakitNonMenular}
+                  onChange={handleChange}
+                  onBlur={() => {
+                    if (formData.penyakitNonMenular.trim() === "")
+                      setIsNonMenularLainnya(false);
+                  }}
+                  className={inputClass}
+                  autoFocus
+                />
+              )}
+
+              {/* Riwayat Kesehatan Mental */}
+              <SelectWithIcon
+                name="kesehatanMental"
+                value={formData.kesehatanMental}
+                onChange={handleChange}
+                placeholder="Memiliki riwayat kesehatan mental?"
+                options={[
+                  { value: "ya", label: "Ya" },
+                  { value: "tidak", label: "Tidak" },
+                ]}
+              />
+
+              {/* Golongan Darah */}
+              <SelectWithIcon
+                name="golonganDarah"
+                value={formData.golonganDarah}
+                onChange={handleChange}
+                placeholder="Golongan Darah"
+                options={[
+                  { value: "A", label: "A" },
+                  { value: "B", label: "B" },
+                  { value: "AB", label: "AB" },
+                  { value: "O", label: "O" },
+                  { value: "belum", label: "Belum Pernah Tes" },
+                ]}
+              />
+
+              {/* Buta Warna */}
+              <SelectWithIcon
+                name="butaWarna"
+                value={formData.butaWarna}
+                onChange={handleChange}
+                placeholder="Apakah Anda Buta Warna?"
+                options={[
+                  { value: "ya", label: "Ya" },
+                  { value: "tidak", label: "Tidak" },
+                ]}
+              />
+
+              {/* Perokok */}
+              <SelectWithIcon
+                name="perokok"
+                value={formData.perokok}
+                onChange={handleChange}
+                placeholder="Apakah Anda Perokok?"
+                options={[
+                  { value: "ya", label: "Ya" },
+                  { value: "tidak", label: "Tidak" },
+                ]}
+              />
             </div>
           </section>
 

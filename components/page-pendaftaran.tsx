@@ -5,10 +5,11 @@ import { createPortal } from "react-dom";
 import { FileText, Megaphone, Clock, CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+// Step Alur Pendaftaran
 const steps = [
   {
     name: "Pendaftaran",
-    activeImg: "/icons/1 (1).png",
+    activeImg: "/icons/1 (3).png",
     inactiveImg: "/icons/1 (2).png",
   },
   {
@@ -30,6 +31,11 @@ const steps = [
     name: "Tes Psikotest",
     activeImg: "/icons/1 (7).png",
     inactiveImg: "/icons/1 (8).png",
+  },
+  {
+    name: "Home Visit",
+    activeImg: "/icons/1 (14).png",
+    inactiveImg: "/icons/1 (13).png",
   },
   {
     name: "Pengumuman",

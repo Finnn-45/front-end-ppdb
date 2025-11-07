@@ -7,32 +7,37 @@ import "animate.css";
 import { ChevronDown } from "lucide-react";
 
 interface OrangTuaForm {
+  // 🔹 Ayah
   ayahNama: string;
-  ayahPendidikan: string;
   ayahAlamat: string;
   ayahTelepon: string;
   ayahPekerjaan: string;
-  ayahAlamatKerja: string;
+  ayahTanggungan: string;
   ayahpenghasilan: string;
 
+  // 🔹 Ibu
   ibuNama: string;
-  ibuPendidikan: string;
   ibuAlamat: string;
   ibuTelepon: string;
   ibuPekerjaan: string;
-  ibuAlamatKerja: string;
+  ibuTanggungan: string;
   ibupenghasilan: string;
 
+  // 🔹 Wali
   waliNama: string;
   waliHubungan: string;
-  walipenghasilan: string;
+  waliTanggungan: string;
   waliPekerjaan: string;
   waliAlamat: string;
-  waliEmail: string;
   waliSumber: string;
+  walipenghasilan: string;
+
+  // 🔹 Kerabat
   kerabatNama: string;
   kerabatHubungan: string;
   kerabatTelepon: string;
+
+  // 🔹 Info tambahan
   infoPPDB: string;
   saudaraBeasiswa: string;
   fasilitatorEmail: string;
@@ -45,31 +50,31 @@ export default function PageFormOrangTua() {
 
   const [formData, setFormData] = useState<OrangTuaForm>({
     ayahNama: "",
-    ayahPendidikan: "",
     ayahAlamat: "",
     ayahTelepon: "",
     ayahPekerjaan: "",
-    ayahAlamatKerja: "",
+    ayahTanggungan: "",
     ayahpenghasilan: "",
 
     ibuNama: "",
-    ibuPendidikan: "",
     ibuAlamat: "",
     ibuTelepon: "",
     ibuPekerjaan: "",
-    ibuAlamatKerja: "",
+    ibuTanggungan: "",
     ibupenghasilan: "",
 
     waliNama: "",
     waliHubungan: "",
-    walipenghasilan: "",
+    waliTanggungan: "",
     waliPekerjaan: "",
     waliAlamat: "",
-    waliEmail: "",
     waliSumber: "",
+    walipenghasilan: "",
+
     kerabatNama: "",
     kerabatHubungan: "",
     kerabatTelepon: "",
+
     infoPPDB: "",
     saudaraBeasiswa: "",
     fasilitatorEmail: "",
@@ -96,6 +101,7 @@ export default function PageFormOrangTua() {
 
     setFormData((prev) => ({ ...prev, [name]: finalValue }));
 
+    // 🔹 Tambahan logika otomatis balik ke dropdown
     if (name === "waliSumber" && finalValue.trim() === "") setIsLainnya(false);
     if (name === "infoPPDB" && finalValue.trim() === "")
       setIsLainnyaInfo(false);
@@ -107,10 +113,13 @@ export default function PageFormOrangTua() {
     key: keyof OrangTuaForm
   ) => {
     const value = e.target.value;
+
     if (value === "lainnya") {
+      // Munculkan input teks "lainnya"
       setOther(true);
       setFormData((prev) => ({ ...prev, [key]: "" }));
     } else {
+      // Kalau user ganti pilihan (bukan lainnya), balikin ke dropdown
       setOther(false);
       setFormData((prev) => ({ ...prev, [key]: value }));
     }
@@ -120,50 +129,49 @@ export default function PageFormOrangTua() {
     const emptyFields: string[] = [];
     const labels: Record<keyof OrangTuaForm, string> = {
       ayahNama: "Nama Ayah",
-      ayahPendidikan: "Pendidikan Ayah",
       ayahAlamat: "Alamat Ayah",
       ayahTelepon: "Nomor Telepon Ayah",
       ayahPekerjaan: "Pekerjaan Ayah",
-      ayahAlamatKerja: "Alamat Tempat Kerja Ayah",
-      ayahpenghasilan: "Jumlah penghasilan Ayah",
+      ayahTanggungan: "Jumlah Tanggungan Ayah",
+      ayahpenghasilan: "Penghasilan Ayah",
 
       ibuNama: "Nama Ibu",
-      ibuPendidikan: "Pendidikan Ibu",
       ibuAlamat: "Alamat Ibu",
       ibuTelepon: "Nomor Telepon Ibu",
       ibuPekerjaan: "Pekerjaan Ibu",
-      ibuAlamatKerja: "Alamat Tempat Kerja Ibu",
-      ibupenghasilan: "Jumlah penghasilan Ibu",
+      ibuTanggungan: "Jumlah Tanggungan Ibu",
+      ibupenghasilan: "Penghasilan Ibu",
 
       waliNama: "Nama Wali",
-      waliHubungan: "Hubungan Wali",
-      walipenghasilan: "Jumlah penghasilan Wali",
+      waliHubungan: "Hubungan dengan Calon Murid",
+      waliTanggungan: "Jumlah Tanggungan Wali",
       waliPekerjaan: "Pekerjaan Wali",
       waliAlamat: "Alamat Wali",
-      waliEmail: "Email Wali",
       waliSumber: "Sumber Penghasilan Wali",
+      walipenghasilan: "Penghasilan Wali",
+
       kerabatNama: "Nama Kerabat",
       kerabatHubungan: "Hubungan Kerabat",
       kerabatTelepon: "Telepon Kerabat",
-      infoPPDB: "Sumber Informasi PPDB",
-      saudaraBeasiswa: "Saudara Penerima Beasiswa",
+
+      infoPPDB: "Mengetahui Informasi PPDB dari",
+      saudaraBeasiswa: "Memiliki Saudara Penerima Beasiswa",
       fasilitatorEmail: "Email Fasilitator",
     };
 
     const wajibDiisi: (keyof OrangTuaForm)[] = [
       "waliNama",
       "waliHubungan",
-      "walipenghasilan",
+      "waliTanggungan",
       "waliPekerjaan",
       "waliAlamat",
-      "waliEmail",
       "waliSumber",
+      "walipenghasilan",
       "kerabatNama",
       "kerabatHubungan",
       "kerabatTelepon",
       "infoPPDB",
       "saudaraBeasiswa",
-      "fasilitatorEmail",
     ];
 
     wajibDiisi.forEach((key) => {
@@ -195,10 +203,10 @@ export default function PageFormOrangTua() {
       text: "Form Data Orang Tua/Wali berhasil disimpan.",
       confirmButtonText: "Lanjutkan",
       confirmButtonColor: "#1E3A8A",
-    }).then(() => router.push("/page-form/page-4"));
+    }).then(() => router.push("/page-form/page-rumahtinggal"));
   };
 
-  const handleBack = () => router.push("/page-form/page-2");
+  const handleBack = () => router.push("/page-form/page-prestasi");
 
   const SelectWithIcon = ({
     name,
@@ -236,7 +244,7 @@ export default function PageFormOrangTua() {
 
   return (
     <>
-      {/* 🔵 HEADER */}
+      {/* Header */}
       <header className="relative h-64 md:h-72 overflow-hidden">
         <img
           src="/bck.png"
@@ -254,11 +262,14 @@ export default function PageFormOrangTua() {
         </div>
       </header>
 
+      {/* Progress */}
       <div className="mb-8 text-center">
         <h1 className="text-xl sm:text-2xl font-bold text-[#1E3A8A] mb-4">
           Formulir Pendaftaran Calon Siswa
         </h1>
+      </div>
 
+   
         <div className="flex justify-center items-center flex-wrap gap-4">
           {["1", "2", "3"].map((step, i) => (
             <React.Fragment key={step}>
@@ -290,68 +301,58 @@ export default function PageFormOrangTua() {
             </React.Fragment>
           ))}
         </div>
-      </div>
 
+      {/* Form */}
       <div className="w-full max-w-6xl mx-auto bg-gray-50 rounded-xl p-4 sm:p-6 md:p-10 shadow-md animate__animated animate__fadeIn ">
         <form onSubmit={handleSubmit} className="space-y-10 text-gray-800">
-          {/* ORANG TUA */}
+          {/* Bagian Orang Tua */}
           <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
               Orang Tua Kandung
             </h2>
             <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               <h3 className="col-span-2 font-semibold text-[#1E3A8A]">Ayah</h3>
-
               <input
                 name="ayahNama"
-                placeholder="Nama"
+                placeholder="Nama Ayah"
                 value={formData.ayahNama}
                 onChange={handleChange}
                 className={inputClass}
               />
               <input
-                name="ayahPendidikan"
-                placeholder="Pendidikan Terakhir"
-                value={formData.ayahPendidikan}
-                onChange={handleChange}
-                className={inputClass}
-              />
-              <input
                 name="ayahAlamat"
-                placeholder="Alamat Rumah"
+                placeholder="Alamat Ayah"
                 value={formData.ayahAlamat}
                 onChange={handleChange}
                 className={inputClass}
               />
               <input
                 name="ayahTelepon"
-                placeholder="No Telepon"
+                placeholder="Nomor Telepon"
                 value={formData.ayahTelepon}
                 onChange={handleChange}
                 className={inputClass}
               />
               <input
                 name="ayahPekerjaan"
-                placeholder="Pekerjaan"
+                placeholder="Pekerjaan Ayah"
                 value={formData.ayahPekerjaan}
                 onChange={handleChange}
                 className={inputClass}
               />
               <input
-                name="ayahAlamatKerja"
-                placeholder="Alamat Kerja"
-                value={formData.ayahAlamatKerja}
+                name="ayahTanggungan"
+                placeholder="Jumlah Tanggungan"
+                value={formData.ayahTanggungan}
                 onChange={handleChange}
                 className={inputClass}
               />
-
-              {/* ⬇️ ini yang dipanjangkan */}
               <input
                 name="ayahpenghasilan"
-                placeholder="Penghasilan"
+                placeholder="Penghasilan Ayah"
                 value={formData.ayahpenghasilan}
                 onChange={handleChange}
-                className={`${inputClass} md:col-span-2`}
+                className={inputClass}
               />
 
               <h3 className="col-span-2 font-semibold text-[#1E3A8A] mt-4">
@@ -359,59 +360,50 @@ export default function PageFormOrangTua() {
               </h3>
               <input
                 name="ibuNama"
-                placeholder="Nama"
+                placeholder="Nama Ibu"
                 value={formData.ibuNama}
                 onChange={handleChange}
                 className={inputClass}
               />
               <input
-                name="ibuPendidikan"
-                placeholder="Pendidikan Terakhir"
-                value={formData.ibuPendidikan}
-                onChange={handleChange}
-                className={inputClass}
-              />
-              <input
                 name="ibuAlamat"
-                placeholder="Alamat Rumah"
+                placeholder="Alamat Ibu"
                 value={formData.ibuAlamat}
                 onChange={handleChange}
                 className={inputClass}
               />
               <input
                 name="ibuTelepon"
-                placeholder="No Telepon"
+                placeholder="Nomor Telepon"
                 value={formData.ibuTelepon}
                 onChange={handleChange}
                 className={inputClass}
               />
               <input
                 name="ibuPekerjaan"
-                placeholder="Pekerjaan"
+                placeholder="Pekerjaan Ibu"
                 value={formData.ibuPekerjaan}
                 onChange={handleChange}
                 className={inputClass}
               />
               <input
-                name="ibuAlamatKerja"
-                placeholder="Alamat Kerja"
-                value={formData.ibuAlamatKerja}
+                name="ibuTanggungan"
+                placeholder="Jumlah Tanggungan"
+                value={formData.ibuTanggungan}
                 onChange={handleChange}
                 className={inputClass}
               />
-
-              {/* ⬇️ ini sudah full width */}
               <input
                 name="ibupenghasilan"
-                placeholder="Penghasilan"
+                placeholder="Penghasilan Ibu"
                 value={formData.ibupenghasilan}
                 onChange={handleChange}
-                className={`${inputClass} md:col-span-2`}
+                className={inputClass}
               />
             </div>
           </section>
 
-          {/* WALI */}
+          {/* Wali */}
           <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
               Informasi Wali
@@ -420,10 +412,10 @@ export default function PageFormOrangTua() {
               {[
                 "waliNama",
                 "waliHubungan",
-                "walipenghasilan",
+                "waliTanggungan",
                 "waliPekerjaan",
                 "waliAlamat",
-                "waliEmail",
+                "walipenghasilan",
               ].map((key) => (
                 <input
                   key={key}
@@ -459,39 +451,51 @@ export default function PageFormOrangTua() {
                   placeholder="Tuliskan sumber penghasilan lainnya"
                   value={formData.waliSumber}
                   onChange={handleChange}
+                  onBlur={() => {
+                    if (formData.waliSumber.trim() === "") setIsLainnya(false);
+                  }}
                   className={`${inputClass} md:col-span-2`}
+                  autoFocus
                 />
               )}
             </div>
           </section>
 
-          {/* KERABAT */}
+          {/* Kerabat */}
           <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
               Kerabat / Relawan yang Dapat Dihubungi
             </h2>
             <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              {["NamaKerabat", "HubunganKerabat", "No telpon kerabat"].map(
-                (key) => (
-                  <input
-                    key={key}
-                    name={key}
-                    placeholder={key.replace(/([A-Z])/g, " $1")}
-                    value={(formData as any)[key]}
-                    onChange={handleChange}
-                    className={inputClass}
-                  />
-                )
-              )}
+              <input
+                name="kerabatNama"
+                placeholder="Nama Kerabat"
+                value={formData.kerabatNama}
+                onChange={handleChange}
+                className={inputClass}
+              />
+              <input
+                name="kerabatHubungan"
+                placeholder="Hubungan Kerabat"
+                value={formData.kerabatHubungan}
+                onChange={handleChange}
+                className={inputClass}
+              />
+              <input
+                name="kerabatTelepon"
+                placeholder="Nomor Telepon Kerabat"
+                value={formData.kerabatTelepon}
+                onChange={handleChange}
+                className={inputClass}
+              />
 
-                 <input
+              <input
                 name="fasilitatorEmail"
                 placeholder="Email Fasilitator (Jika Ada)"
                 value={formData.fasilitatorEmail}
                 onChange={handleChange}
                 className={inputClass}
               />
-
               {!isLainnyaInfo ? (
                 <SelectWithIcon
                   name="infoPPDB"
@@ -499,7 +503,7 @@ export default function PageFormOrangTua() {
                   onChange={(e) =>
                     handleSelectWithOther(e, setIsLainnyaInfo, "infoPPDB")
                   }
-                  placeholder="Mengetahui Pendaftaran dari"
+                  placeholder="Mengetahui Informasi PPDB dari"
                   options={[
                     { value: "sosmed", label: "Media Sosial" },
                     { value: "teman", label: "Teman" },
@@ -512,7 +516,12 @@ export default function PageFormOrangTua() {
                   placeholder="Tuliskan sumber informasi lainnya"
                   value={formData.infoPPDB}
                   onChange={handleChange}
+                  onBlur={() => {
+                    if (formData.infoPPDB.trim() === "")
+                      setIsLainnyaInfo(false);
+                  }}
                   className={inputClass}
+                  autoFocus
                 />
               )}
 
@@ -526,15 +535,10 @@ export default function PageFormOrangTua() {
                   { value: "tidak", label: "Tidak" },
                 ]}
               />
-
             </div>
           </section>
 
-          {/* FOOTER */}
-          <p className="text-center text-xs sm:text-sm text-gray-500">
-            Pastikan semua form telah diisi dengan benar sebelum lanjut ke tahap
-            berikutnya.
-          </p>
+          {/* Tombol */}
           <div className="flex flex-col sm:flex-row justify-between mt-6 gap-3">
             <button
               type="button"
