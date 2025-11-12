@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 export default function RegisterForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -21,9 +20,9 @@ export default function RegisterForm() {
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    const { fullName, email, password, confirmPassword } = formData;
+    const { email, password, confirmPassword } = formData;
 
-    if (!fullName || !email || !password || !confirmPassword) {
+    if ( !email || !password || !confirmPassword) {
       alert("Semua field wajib diisi!");
       return;
     }
@@ -44,7 +43,6 @@ export default function RegisterForm() {
     }
 
     const newUser = {
-      fullName,
       email: email.trim(),
       password: password.trim(),
     };
@@ -58,15 +56,6 @@ export default function RegisterForm() {
 
   return (
     <form onSubmit={handleRegister} className="space-y-4">
-      <input
-        type="text"
-        name="fullName"
-        placeholder="Nama Lengkap"
-        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1d2b6f] outline-none"
-        value={formData.fullName}
-        onChange={handleChange}
-        required
-      />
       <input
         type="email"
         name="email"

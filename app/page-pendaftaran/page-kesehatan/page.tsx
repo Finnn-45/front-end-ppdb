@@ -1,0 +1,394 @@
+"use client";
+
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
+import "animate.css";
+import { ChevronDown } from "lucide-react";
+
+interface KesehatanForm {
+  tinggiBadan: string;
+  beratBadan: string;
+  penyakitMenular: string;
+  penyakitNonMenular: string;
+  golonganDarah: string;
+  kesehatanMental: string;
+  butaWarna: string;
+  perokok: string;
+}
+
+const PageFormKesehatan: React.FC = () => {
+  const router = useRouter();
+
+  // State untuk input dan mode "lainnya"
+  const [isMenularLainnya, setIsMenularLainnya] = useState(false);
+  const [isNonMenularLainnya, setIsNonMenularLainnya] = useState(false);
+
+  const [formData, setFormData] = useState<KesehatanForm>({
+    tinggiBadan: "",
+    beratBadan: "",
+    penyakitMenular: "",
+    penyakitNonMenular: "",
+    golonganDarah: "",
+    kesehatanMental: "",
+    butaWarna: "",
+    perokok: "",
+  });
+
+  const inputClass =
+    "w-full border border-gray-300 rounded-full px-4 py-3 text-sm sm:text-base focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none";
+  const selectClass =
+    "w-full border border-gray-300 rounded-full px-4 py-3 text-sm sm:text-base bg-white focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none appearance-none pr-10";
+
+  // 🔹 Fungsi umum ubah data form
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // 🔹 Menular: ubah ke input kalau "lainnya"
+  const handleSelectMenular = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    if (value === "lainnya") {
+      setIsMenularLainnya(true);
+      setFormData((prev) => ({ ...prev, penyakitMenular: "" }));
+    } else {
+      setIsMenularLainnya(false);
+      setFormData((prev) => ({ ...prev, penyakitMenular: value }));
+    }
+  };
+
+  // 🔹 Non-Menular: ubah ke input kalau "lainnya"
+  const handleSelectNonMenular = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    if (value === "lainnya") {
+      setIsNonMenularLainnya(true);
+      setFormData((prev) => ({ ...prev, penyakitNonMenular: "" }));
+    } else {
+      setIsNonMenularLainnya(false);
+      setFormData((prev) => ({ ...prev, penyakitNonMenular: value }));
+    }
+  };
+
+  // 🔹 Komponen dropdown dengan ikon
+  const SelectWithIcon = ({
+    name,
+    value,
+    onChange,
+    options,
+    placeholder,
+  }: {
+    name: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    options: { value: string; label: string }[];
+    placeholder: string;
+  }) => (
+    <div className="relative">
+      <select
+        name={name}
+        value={value}
+        onChange={onChange}
+        className={selectClass}
+      >
+        <option value="">{placeholder}</option>
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      <ChevronDown
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+        size={20}
+      />
+    </div>
+  );
+
+  // 🔹 Validasi isi form
+  const validateForm = () => {
+    const labels: Record<keyof KesehatanForm, string> = {
+      tinggiBadan: "Tinggi Badan",
+      beratBadan: "Berat Badan",
+      penyakitMenular: "Penyakit Menular",
+      penyakitNonMenular: "Penyakit Non-Menular / Alergi",
+      golonganDarah: "Golongan Darah",
+      kesehatanMental: "Riwayat Kesehatan Mental",
+      butaWarna: "Kondisi Buta Warna",
+      perokok: "Status Merokok",
+    };
+
+    const emptyFields: string[] = [];
+    (Object.keys(formData) as (keyof KesehatanForm)[]).forEach((key) => {
+      if (!formData[key] || formData[key].trim() === "") {
+        emptyFields.push(labels[key]);
+      }
+    });
+
+    return emptyFields;
+  };
+
+  // 🔹 Submit form
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const emptyFields = validateForm();
+    if (emptyFields.length > 0) {
+      Swal.fire({
+        icon: "warning",
+        title: "Data Belum Lengkap!",
+        html: `<p class="mb-2">Lengkapi kolom berikut:</p>
+        <ul style="text-align:left; display:inline-block;">
+          ${emptyFields.map((f) => `<li>• ${f}</li>`).join("")}
+        </ul>`,
+        confirmButtonText: "Oke, isi sekarang",
+        confirmButtonColor: "#1E3A8A",
+        background: "#f9fafb",
+        color: "#1E293B",
+        showClass: { popup: "animate__animated animate__shakeX" },
+      });
+      return;
+    }
+
+    Swal.fire({
+      title: "Data Tersimpan!",
+      text: "Form kesehatan kamu berhasil disimpan.",
+      icon: "success",
+      confirmButtonText: "Lanjutkan",
+      confirmButtonColor: "#1E3A8A",
+      showClass: { popup: "animate__animated animate__fadeInDown" },
+      hideClass: { popup: "animate__animated animate__fadeOutUp" },
+    }).then(() => router.push("/page-form/page-uploadberkas"));
+  };
+
+  const handleBack = () => router.push("/page-form/page-rumahtinggal");
+
+  return (
+    <>
+       {/* HEADER */}
+      <header className="relative h-64 md:h-72 overflow-hidden">
+        <img
+          src="/bck.png"
+          alt="Background Indonesia"
+          className="absolute inset-0 w-full h-full object-cover opacity-85"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#1E3A8A]/70 via-[#1E3A8A]/10 to-white"></div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+          <h1 className="text-[#EAF0FF] text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">
+            Formulir Pendaftaran Calon Siswa
+          </h1>
+          <p className="mt-3 text-[#949494] text-base sm:text-lg md:text-xl font-medium opacity-95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.25)]">
+            Data Kesehatan
+          </p>
+        </div>
+      </header>
+
+      {/* FORM */}
+      {/* 🏠 FORM BAGIAN UTAMA */}
+      <div className="w-full max-w-6xl mx-auto bg-gray-50 rounded-xl p-4 sm:p-6 md:p-10 shadow-sm animate__animated animate__fadeIn mt-6">
+        <div className="mb-8 text-center">
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1E3A8A] mb-4">
+            Formulir Pendaftaran Calon Siswa
+          </h1>
+
+          <div className="flex justify-center items-center flex-wrap gap-4">
+            {[3, 4, 5].map((num, i) => (
+              <React.Fragment key={num}>
+                <div className="flex flex-col items-center">
+                  <div
+                    className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold text-sm sm:text-base ${
+                      num === 5
+                        ? "bg-[#1E3A8A] text-white"
+                        : "bg-gray-300 text-gray-600"
+                    }`}
+                  >
+                    {num}
+                  </div>
+                  <p
+                    className={`mt-1 text-xs sm:text-sm ${
+                      num === 5 ? "text-[#1E3A8A]" : "text-gray-500"
+                    }`}
+                  >
+                    {num === 3
+                      ? "Data Orangtua / Wali"
+                      : num === 4
+                      ? "Data Rumah"
+                      : "Data kesehatan"}
+                  </p>
+                </div>
+                {i < 2 && (
+                  <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
+            <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
+              Riwayat Kesehatan Calon Peserta Didik
+            </h2>
+            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Tinggi & Berat */}
+              <div className="relative">
+                <input
+                  type="number"
+                  name="tinggiBadan"
+                  placeholder="Tinggi Badan (cm)"
+                  value={formData.tinggiBadan}
+                  onChange={handleChange}
+                  className={inputClass}
+                  min={0}
+                />
+              </div>
+              <div className="relative">
+                <input
+                  type="number"
+                  name="beratBadan"
+                  placeholder="Berat Badan (kg)"
+                  value={formData.beratBadan}
+                  onChange={handleChange}
+                  className={inputClass}
+                  min={0}
+                />
+              </div>
+
+              {/* Penyakit Menular */}
+              {!isMenularLainnya ? (
+                <SelectWithIcon
+                  name="penyakitMenular"
+                  value={formData.penyakitMenular}
+                  onChange={handleSelectMenular}
+                  placeholder="Penyakit Menular"
+                  options={[
+                    { value: "tbc", label: "TBC" },
+                    { value: "hiv", label: "HIV/AIDS" },
+                    { value: "scabies", label: "Scabies" },
+                    { value: "lainnya", label: "Lainnya" },
+                  ]}
+                />
+              ) : (
+                <input
+                  name="penyakitMenular"
+                  placeholder="Tuliskan penyakit menular lainnya"
+                  value={formData.penyakitMenular}
+                  onChange={handleChange}
+                  onBlur={() => {
+                    if (formData.penyakitMenular.trim() === "")
+                      setIsMenularLainnya(false);
+                  }}
+                  className={inputClass}
+                  autoFocus
+                />
+              )}
+
+              {/* Penyakit Non-Menular */}
+              {!isNonMenularLainnya ? (
+                <SelectWithIcon
+                  name="penyakitNonMenular"
+                  value={formData.penyakitNonMenular}
+                  onChange={handleSelectNonMenular}
+                  placeholder="Penyakit Non-Menular / Alergi"
+                  options={[
+                    { value: "asma", label: "Asma" },
+                    { value: "alergi", label: "Alergi" },
+                    { value: "lainnya", label: "Lainnya" },
+                  ]}
+                />
+              ) : (
+                <input
+                  name="penyakitNonMenular"
+                  placeholder="Tuliskan penyakit non-menular / alergi lainnya"
+                  value={formData.penyakitNonMenular}
+                  onChange={handleChange}
+                  onBlur={() => {
+                    if (formData.penyakitNonMenular.trim() === "")
+                      setIsNonMenularLainnya(false);
+                  }}
+                  className={inputClass}
+                  autoFocus
+                />
+              )}
+
+              {/* Riwayat Kesehatan Mental */}
+              <SelectWithIcon
+                name="kesehatanMental"
+                value={formData.kesehatanMental}
+                onChange={handleChange}
+                placeholder="Memiliki riwayat kesehatan mental?"
+                options={[
+                  { value: "ya", label: "Ya" },
+                  { value: "tidak", label: "Tidak" },
+                ]}
+              />
+
+              {/* Golongan Darah */}
+              <SelectWithIcon
+                name="golonganDarah"
+                value={formData.golonganDarah}
+                onChange={handleChange}
+                placeholder="Golongan Darah"
+                options={[
+                  { value: "A", label: "A" },
+                  { value: "B", label: "B" },
+                  { value: "AB", label: "AB" },
+                  { value: "O", label: "O" },
+                  { value: "belum", label: "Belum Pernah Tes" },
+                ]}
+              />
+
+              {/* Buta Warna */}
+              <SelectWithIcon
+                name="butaWarna"
+                value={formData.butaWarna}
+                onChange={handleChange}
+                placeholder="Apakah Anda Buta Warna?"
+                options={[
+                  { value: "ya", label: "Ya" },
+                  { value: "tidak", label: "Tidak" },
+                ]}
+              />
+
+              {/* Perokok */}
+              <SelectWithIcon
+                name="perokok"
+                value={formData.perokok}
+                onChange={handleChange}
+                placeholder="Apakah Anda Perokok Aktif atau Pasif?"
+                options={[
+                  { value: "ya", label: "Ya" },
+                  { value: "tidak", label: "Tidak" },
+                ]}
+              />
+            </div>
+          </section>
+
+          <p className="text-center text-xs sm:text-sm text-gray-500">
+            Pastikan semua data kesehatan sudah diisi dengan benar.
+          </p>
+
+          {/* Tombol */}
+          <div className="flex flex-col sm:flex-row justify-between gap-3">
+            <button
+              type="button"
+              onClick={handleBack}
+              className="w-full sm:w-auto bg-gray-300 text-gray-800 font-medium px-6 sm:px-8 py-2 rounded-full hover:bg-gray-400 transition"
+            >
+              Kembali
+            </button>
+            <button
+              type="submit"
+              className="w-full sm:w-auto bg-[#1E3A8A] text-white font-medium px-6 sm:px-8 py-2 rounded-full hover:bg-[#162d66] transition"
+            >
+              Selanjutnya
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default PageFormKesehatan;

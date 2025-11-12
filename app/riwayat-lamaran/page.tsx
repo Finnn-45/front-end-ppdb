@@ -18,13 +18,32 @@ export default function RiwayatLamaran() {
   const router = useRouter();
   const [formData, setFormData] = useState<any>({});
   const [housePhotos, setHousePhotos] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // nanti ganti ke URL backend lo
+  const API_URL = "http://localhost:5000/api/riwayat-lamaran";
 
   useEffect(() => {
-    const savedData = localStorage.getItem("formData");
-    const savedPhotos = localStorage.getItem("housePhotos");
+    const fetchData = async () => {
+      try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error("Gagal ambil data");
+        const data = await res.json();
 
-    if (savedData) setFormData(JSON.parse(savedData));
-    if (savedPhotos) setHousePhotos(JSON.parse(savedPhotos));
+        // fallback kalau data kosong
+        setFormData(data.formData || {});
+        setHousePhotos(data.housePhotos || []);
+      } catch (err) {
+        console.error("Gagal fetch data:", err);
+        // kalau gagal, tetap kasih objek kosong biar tampil “–”
+        setFormData({});
+        setHousePhotos([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const Section = ({
@@ -44,6 +63,16 @@ export default function RiwayatLamaran() {
     </section>
   );
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <p className="text-gray-600 font-medium animate-pulse">
+          🔄 Memuat data pendaftaran...
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 px-3 sm:px-6 py-8 sm:py-10 flex flex-col items-center">
       {/* Header */}
@@ -61,7 +90,7 @@ export default function RiwayatLamaran() {
       </div>
 
       {/* Konten utama */}
-      <div className="w-full max-w-5xl bg-white rounded-b-2xl shadow-md border-t-0 p-5 sm:p-10 space-y-8 sm:space-y-10 mt-0 sm:mt-0">
+      <div className="w-full max-w-5xl bg-white rounded-b-2xl shadow-md border-t-0 p-5 sm:p-10 space-y-8 sm:space-y-10">
         {/* Data Diri */}
         <Section title="Data Diri" icon={<User className="w-5 h-5" />}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-gray-700 text-sm sm:text-base">
@@ -87,7 +116,7 @@ export default function RiwayatLamaran() {
           </div>
         </Section>
 
-        {/* Prestasi */}
+        {/* Prestasi & Minat */}
         <Section title="Prestasi & Minat" icon={<Trophy className="w-5 h-5" />}>
           <div className="space-y-2 text-gray-700 text-sm sm:text-base">
             <p><strong>Bidang Prestasi:</strong> {formData.achievementField || "-"}</p>
@@ -130,66 +159,20 @@ export default function RiwayatLamaran() {
           </p>
         </Section>
 
-        {/* Upload Dokumen */}
-        <Section title="Upload Dokumen" icon={<FileText className="w-5 h-5" />}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { name: "Rapot Semester 3–5", key: "rapot" },
-              { name: "Surat SKTM", key: "sktm" },
-              { name: "Screenshot IG", key: "ss_ig" },
-              { name: "Surat Rekomendasi", key: "rekomendasi" },
-              { name: "Kartu Keluarga", key: "kk" },
-              { name: "BPJS / KIS", key: "bpjs" },
-              { name: "Pas Foto", key: "foto" },
-            ].map((doc, idx) => {
-              const file = formData?.uploadedFiles?.[doc.key];
-              const isUploaded = !!file;
-              return (
-                <div
-                  key={idx}
-                  className={`rounded-xl border overflow-hidden bg-gray-50 hover:bg-white shadow-sm hover:shadow-md transition p-3 text-center ${
-                    isUploaded ? "border-green-400" : "border-gray-300"
-                  }`}
-                >
-                  <p className="font-semibold text-gray-800 text-sm sm:text-base mb-1">
-                    {doc.name}
-                  </p>
-                  <p
-                    className={`text-xs sm:text-sm ${
-                      isUploaded ? "text-green-600" : "text-red-500"
-                    }`}
-                  >
-                    {isUploaded ? "✅ Sudah Diupload" : "❌ Belum Diupload"}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </Section>
-
         {/* Foto Rumah */}
         <Section title="Foto Rumah (Preview)" icon={<Image className="w-5 h-5" />}>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {housePhotos.length > 0 ? (
               housePhotos.map((src, idx) => (
-                <div
-                  key={idx}
-                  className="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"
-                >
-                  <img
-                    src={src}
-                    alt={`Foto Rumah ${idx + 1}`}
-                    className="w-full h-32 sm:h-40 object-cover"
-                  />
+                <div key={idx} className="border rounded-xl overflow-hidden shadow-sm">
+                  <img src={src} alt={`Foto ${idx + 1}`} className="w-full h-32 sm:h-40 object-cover" />
                   <p className="text-xs sm:text-sm text-center py-2 bg-gray-50 text-gray-700 font-medium">
                     Foto {idx + 1}
                   </p>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500 italic text-sm">
-                Belum ada foto rumah diunggah.
-              </p>
+              <p className="text-gray-500 italic text-sm">Belum ada foto rumah diunggah.</p>
             )}
           </div>
         </Section>
@@ -201,7 +184,7 @@ export default function RiwayatLamaran() {
             Berkas Telah Dikirim
           </h3>
           <p className="text-sm sm:text-base text-gray-600 max-w-lg mx-auto">
-            Terima kasih telah mendaftar di <strong>SMK TI BAZMA</strong>.
+            Terima kasih telah mendaftar di <strong>SMK TI BAZMA</strong>.  
             Data kamu sedang dalam proses verifikasi oleh panitia.
           </p>
         </section>

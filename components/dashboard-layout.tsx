@@ -953,7 +953,7 @@ export function DashboardLayout() {
                     </p>
                   </div>
                   <button
-                    onClick={() => router.push("/page-form")}
+                    onClick={() => router.push("/page-pendaftaran")}
                     className="mt-4 md:mt-0 inline-flex items-center gap-2 bg-[#1E3A8A] text-white px-5 py-2 rounded-full font-medium hover:bg-[#162d66] transition"
                   >
                     Klik Untuk mendaftar →
