@@ -135,30 +135,29 @@ export default function PagePendaftaran() {
         </div>
       </section>
 
-<section className="relative mb-16 text-center py-14 px-6 bg-gradient-to-r from-[#e8eeff] to-[#f5f8ff] rounded-2xl shadow-lg overflow-hidden mt-10">
-  {/* Ornamen latar */}
-  <div className="absolute top-0 left-0 w-40 h-40 bg-[#1E3A8A]/10 rounded-full blur-3xl -z-0"></div>
-  <div className="absolute bottom-0 right-0 w-56 h-56 bg-[#3b82f6]/10 rounded-full blur-3xl -z-0"></div>
+      <section className="relative mb-16 text-center py-14 px-6 bg-gradient-to-r from-[#e8eeff] to-[#f5f8ff] rounded-2xl shadow-lg overflow-hidden mt-10">
+        {/* Ornamen latar */}
+        <div className="absolute top-0 left-0 w-40 h-40 bg-[#1E3A8A]/10 rounded-full blur-3xl -z-0"></div>
+        <div className="absolute bottom-0 right-0 w-56 h-56 bg-[#3b82f6]/10 rounded-full blur-3xl -z-0"></div>
 
-  {/* Konten utama */}
-  <div className="relative z-10">
-    <h2 className="text-3xl md:text-4xl font-extrabold text-[#1E3A8A] mb-4 tracking-tight">
-      Ikuti Langkah-langkah Pendaftaran SPMB
-    </h2>
+        {/* Konten utama */}
+        <div className="relative z-10">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[#1E3A8A] mb-4 tracking-tight">
+            Ikuti Langkah-langkah Pendaftaran SPMB
+          </h2>
 
-    <p className="text-gray-600 max-w-2xl mx-auto mb-8 text-sm md:text-base leading-relaxed">
-      Proses pendaftaran di <b>SMK TI Bazma</b> dibuat mudah, cepat, dan
-      transparan. Ikuti setiap tahap di bawah ini dan raih kesempatan menjadi
-      bagian dari generasi teknologi masa depan!
-    </p>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-8 text-sm md:text-base leading-relaxed">
+            Proses pendaftaran di <b>SMK TI Bazma</b> dibuat mudah, cepat, dan
+            transparan. Ikuti setiap tahap di bawah ini dan raih kesempatan
+            menjadi bagian dari generasi teknologi masa depan!
+          </p>
 
-    {/* Garis hias di bawah teks */}
-    <div className="flex justify-center">
-      <div className="w-24 h-1 rounded-full bg-[#1E3A8A]"></div>
-    </div>
-  </div>
-</section>
-
+          {/* Garis hias di bawah teks */}
+          <div className="flex justify-center">
+            <div className="w-24 h-1 rounded-full bg-[#1E3A8A]"></div>
+          </div>
+        </div>
+      </section>
 
       {/* Gambar Header + Tombol Modal */}
       <section className="mb-10 mt-10">
@@ -302,12 +301,9 @@ export default function PagePendaftaran() {
           document.body
         )}
 
-     
-
       {/* Alur Pendaftaran (Stepper) */}
       <section className="mb-10">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden p-6">
-
           {/* Desktop */}
           <div className="hidden md:flex relative justify-between items-start">
             {steps.map((step, idx) => {
@@ -359,17 +355,26 @@ export default function PagePendaftaran() {
           </div>
 
           {/* Mobile */}
-          <div className="grid grid-cols-2 gap-6 md:hidden">
+          {/* Versi mobile: grid 2 kolom */}
+          <div className="grid grid-cols-2 gap-6 md:hidden place-items-center">
             {steps.map((step, idx) => {
-              const isActive = idx <= activeStep;
+              const isActive = idx === 0;
+              const isLastOdd =
+                steps.length % 2 !== 0 && idx === steps.length - 1; // ganjil & elemen terakhir
+
               return (
-                <div key={idx} className="flex flex-col items-center">
+                <div
+                  key={idx}
+                  className={`flex flex-col items-center ${
+                    isLastOdd ? "col-span-2 justify-self-center" : ""
+                  }`}
+                >
                   <div className="relative">
                     <div
                       className={`absolute -top-2 -left-2 flex items-center justify-center w-5 h-5 rounded-full text-[10px] font-bold ${
                         isActive
                           ? "bg-green-500 text-white"
-                          : "bg-gray-400 text-white"
+                          : "bg-[#1E3A8A] text-white"
                       }`}
                     >
                       {idx + 1}
