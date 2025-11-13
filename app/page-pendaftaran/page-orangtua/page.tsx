@@ -157,13 +157,6 @@ export default function PageFormOrangTua() {
     };
 
     const wajibDiisi: (keyof OrangTuaForm)[] = [
-      "waliNama",
-      "waliHubungan",
-      "waliTanggungan",
-      "waliPekerjaan",
-      "waliAlamat",
-      "waliSumber",
-      "walipenghasilan",
       "kerabatNama",
       "kerabatHubungan",
       "kerabatTelepon",

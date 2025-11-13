@@ -56,77 +56,78 @@ export default function PageBantuan() {
       </section>
 
       {/* Kontak Sekolah */}
-      <section className="mt-24 px-6 md:px-12 lg:px-20 mb-16">
-        <h2 className="text-2xl font-bold text-[#1E3A8A] mb-8 text-center md:text-left">
-          Hubungi Kami
-        </h2>
+ {/* Kontak Sekolah */}
+<section className="mt-24 px-6 md:px-12 lg:px-20 mb-20">
+  <h2 className="text-3xl font-bold text-[#1E3A8A] mb-10 text-center md:text-left">
+    Hubungi Kami
+  </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Telepon */}
-          <a
-            href="tel:083890713395"
-            className="flex items-center gap-4 bg-white p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-          >
-            <div className="bg-[#1E3A8A]/10 p-3 rounded-full">
-              <Phone className="text-[#1E3A8A] w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-800">Telepon</h3>
-              <p className="text-gray-600 text-sm">(0838 9071 3395)</p>
-            </div>
-          </a>
+  {/* Card Media Sosial Besar */}
+  <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-lg p-10 border-t border-b border-gray-100 w-full">
 
-          {/* Instagram */}
-          <a
-            href="https://instagram.com/smktibazma"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-4 bg-white p-5 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-          >
-            <div className="bg-[#1E3A8A]/10 p-3 rounded-full">
-              <Instagram className="text-[#1E3A8A] w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-800">Instagram</h3>
-              <p className="text-gray-600 text-sm">@smktibazma</p>
-            </div>
-          </a>
-
-          {/* YouTube - full lebar + isi di tengah */}
-          <a
-            href="https://youtube.com/@smktibazma"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative flex flex-col sm:flex-row items-center justify-center gap-4 bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 md:col-span-2 overflow-hidden text-center"
-          >
-            {/* Background SVG dekoratif */}
-            <svg
-              className="absolute right-0 bottom-0 w-40 opacity-10 pointer-events-none"
-              viewBox="0 0 200 200"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill="#1E3A8A"
-                d="M45.3,-70.2C59.3,-61.1,72.2,-49,78.2,-34.3C84.2,-19.5,83.4,-2.1,77.2,13.6C71,29.3,59.4,43.4,46.1,54.2C32.8,65,16.4,72.4,0.2,72.1C-16,71.8,-32.1,63.8,-46.7,53C-61.3,42.2,-74.3,28.6,-78.8,12.4C-83.3,-3.8,-79.4,-22.7,-69.3,-37.3C-59.2,-51.8,-43,-62,-26.3,-70.2C-9.5,-78.4,7.8,-84.7,24.8,-83.3C41.9,-81.9,58.6,-72.9,45.3,-70.2Z"
-                transform="translate(100 100)"
-              />
-            </svg>
-
-            {/* Konten utama */}
-            <div className="relative flex flex-col sm:flex-row items-center justify-center gap-4">
-              <div className="bg-[#1E3A8A]/10 p-3 rounded-full">
-                <Youtube className="text-[#1E3A8A] w-10 h-10" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-800 text-lg">YouTube</h3>
-                <p className="text-gray-600 text-sm">
-                  SMK TI Bazma Official Channel
-                </p>
-              </div>
-            </div>
-          </a>
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+      {/* WhatsApp */}
+      <button
+        onClick={() =>
+          window.open(
+            `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+              whatsappMessage
+            )}`,
+            "_blank"
+          )
+        }
+        className="flex flex-col items-center justify-center bg-white border border-gray-100 p-8 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+      >
+        <div className="bg-green-50 p-4 rounded-full mb-3">
+          <MessageCircle className="text-green-500 w-10 h-10" />
         </div>
-      </section>
+        <span className="font-semibold text-gray-800 text-base">
+          WhatsApp
+        </span>
+        <p className="text-gray-500 text-sm mt-1 text-center">
+          Chat langsung dengan admin PPDB
+        </p>
+      </button>
+
+      {/* Instagram */}
+      <a
+        href="https://instagram.com/smktibazma"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex flex-col items-center justify-center bg-white border border-gray-100 p-8 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+      >
+        <div className="bg-pink-50 p-4 rounded-full mb-3">
+          <Instagram className="text-pink-500 w-10 h-10" />
+        </div>
+        <span className="font-semibold text-gray-800 text-base">
+          Instagram
+        </span>
+        <p className="text-gray-500 text-sm mt-1 text-center">
+          Ikuti kegiatan dan info terbaru
+        </p>
+      </a>
+
+      {/* YouTube */}
+      <a
+        href="https://youtube.com/@smktibazma"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex flex-col items-center justify-center bg-white border border-gray-100 p-8 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+      >
+        <div className="bg-red-50 p-4 rounded-full mb-3">
+          <Youtube className="text-red-500 w-10 h-10" />
+        </div>
+        <span className="font-semibold text-gray-800 text-base">
+          YouTube
+        </span>
+        <p className="text-gray-500 text-sm mt-1 text-center">
+          Tonton konten dan dokumentasi sekolah
+        </p>
+      </a>
+    </div>
+  </div>
+</section>
+
 
     {/* Alamat Sekolah */}
 {/* Alamat Sekolah */}
@@ -156,14 +157,10 @@ export default function PageBantuan() {
     </h2>
 
     <p className="text-sm md:text-base leading-relaxed text-gray-100 max-w-2xl mx-auto md:mx-0">
-      <b>SMK TI Bazma</b> terletak di daerah yang asri dan strategis,
-      memberikan suasana belajar yang nyaman serta mendukung proses
-      pengembangan karakter dan kompetensi siswa.
-      <br />
       <span className="block mt-3 text-gray-200">
-        📍 Jl. Raya Cibadak No. 99,<br />
-        Kec. Ciampea, Kabupaten Bogor,<br />
-        Jawa Barat 16620
+        📍 Jl. Raya Cikampak Cicadas,<br />
+        RT.1/RW.1, Cicadas, Kec. Ciampea,<br />
+Kabupaten Bogor, Jawa Barat 16620
       </span>
     </p>
 

@@ -109,7 +109,7 @@ const PageFormAturan: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-[#1E3A8A]/70 via-[#1E3A8A]/10 to-white"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
           <h1 className="text-[#EAF0FF] text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">
-            Formulir Pendaftaran Calon Siswa
+            Formulir Pendaftaran Calon Murid
           </h1>
           <p className="mt-3 text-[#949494] text-base sm:text-lg md:text-xl font-medium opacity-95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.25)]">
             Aturan Sekolah
@@ -122,7 +122,7 @@ const PageFormAturan: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-xl sm:text-2xl font-bold text-[#1E3A8A] mb-4">
-            Formulir Pendaftaran Calon Siswa
+            Formulir Pendaftaran Calon Murid
           </h1>
 
           {/* Stepper */}

@@ -28,7 +28,7 @@ const steps = [
     inactiveImg: "/icons/1 (10).png",
   },
   {
-    name: "Tes Psikotest",
+    name: "Tes Psikotes",
     activeImg: "/icons/1 (7).png",
     inactiveImg: "/icons/1 (8).png",
   },

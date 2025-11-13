@@ -176,7 +176,7 @@ const PageFormKesehatan: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-[#1E3A8A]/70 via-[#1E3A8A]/10 to-white"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
           <h1 className="text-[#EAF0FF] text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">
-            Formulir Pendaftaran Calon Siswa
+            Formulir Pendaftaran Calon Murid
           </h1>
           <p className="mt-3 text-[#949494] text-base sm:text-lg md:text-xl font-medium opacity-95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.25)]">
             Data Kesehatan
@@ -189,7 +189,7 @@ const PageFormKesehatan: React.FC = () => {
       <div className="w-full max-w-6xl mx-auto bg-gray-50 rounded-xl p-4 sm:p-6 md:p-10 shadow-sm animate__animated animate__fadeIn mt-6">
         <div className="mb-8 text-center">
           <h1 className="text-xl sm:text-2xl font-bold text-[#1E3A8A] mb-4">
-            Formulir Pendaftaran Calon Siswa
+            Formulir Pendaftaran Calon Murid
           </h1>
 
           <div className="flex justify-center items-center flex-wrap gap-4">
@@ -356,10 +356,10 @@ const PageFormKesehatan: React.FC = () => {
                 name="perokok"
                 value={formData.perokok}
                 onChange={handleChange}
-                placeholder="Apakah Anda Perokok Aktif atau Pasif?"
+                placeholder="Apakah Anda Perokok?"
                 options={[
-                  { value: "ya", label: "Ya" },
-                  { value: "tidak", label: "Tidak" },
+                  { value: "ya", label: "Aktif" },
+                  { value: "tidak", label: "Pasif" },
                 ]}
               />
             </div>
