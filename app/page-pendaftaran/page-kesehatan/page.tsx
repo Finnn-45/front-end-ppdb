@@ -166,7 +166,7 @@ const PageFormKesehatan: React.FC = () => {
 
   return (
     <>
-       {/* HEADER */}
+      {/* HEADER */}
       <header className="relative h-64 md:h-72 overflow-hidden">
         <img
           src="/bck.png"
@@ -193,28 +193,26 @@ const PageFormKesehatan: React.FC = () => {
           </h1>
 
           <div className="flex justify-center items-center flex-wrap gap-4">
-            {[3, 4, 5].map((num, i) => (
+            {[4, 5, 6].map((num, i) => (
               <React.Fragment key={num}>
                 <div className="flex flex-col items-center">
                   <div
-                    className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold text-sm sm:text-base ${
-                      num === 5
+                    className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold text-sm sm:text-base ${num === 5
                         ? "bg-[#1E3A8A] text-white"
                         : "bg-gray-300 text-gray-600"
-                    }`}
+                      }`}
                   >
                     {num}
                   </div>
                   <p
-                    className={`mt-1 text-xs sm:text-sm ${
-                      num === 5 ? "text-[#1E3A8A]" : "text-gray-500"
-                    }`}
+                    className={`mt-1 text-xs sm:text-sm ${num === 5 ? "text-[#1E3A8A]" : "text-gray-500"
+                      }`}
                   >
-                    {num === 3
-                      ? "Data Orangtua / Wali"
-                      : num === 4
-                      ? "Data Rumah"
-                      : "Data kesehatan"}
+                    {num === 5
+                      ? "Data Kesehatan"
+                      : num === 6
+                        ? "Upload Berkas"
+                        : "Data Rumah"}
                   </p>
                 </div>
                 {i < 2 && (
@@ -360,7 +358,7 @@ const PageFormKesehatan: React.FC = () => {
                 options={[
                   { value: "ya", label: "Aktif" },
                   { value: "tidak", label: "Pasif" },
-                  { value: "mustahil", label: "Tidak sama sekali" },
+                  { value: "bukan", label: "Tidak sama sekali" },
                 ]}
               />
             </div>

@@ -118,7 +118,7 @@ const PageFormAturan: React.FC = () => {
       </header>
 
       {/* 🔷 FORM CONTAINER */}
-      <div className="w-full max-w-6xl mx-auto bg-gray-50 rounded-xl p-6 sm:p-10 shadow-sm animate__animated animate__fadeInUp animate__slow mt-6">
+      <div className="w-full max-w-6xl mx-auto bg-gray-50 rounded-2xl p-4 sm:p-6 md:p-10 shadow-md animate__animated animate__fadeIn animate__slow">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-xl sm:text-2xl font-bold text-[#1E3A8A] mb-4">
@@ -127,27 +127,6 @@ const PageFormAturan: React.FC = () => {
 
           {/* Stepper */}
           <div className="flex justify-center items-center flex-wrap gap-4">
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-semibold text-sm sm:text-base">
-                5
-              </div>
-              <p className="mt-1 text-xs sm:text-sm font-medium text-gray-500 text-center">
-                Data Kesehatan
-              </p>
-            </div>
-
-            <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
-
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-gray-300 text-gray-600 font-semibold text-sm sm:text-base">
-                6
-              </div>
-              <p className="mt-1 text-xs sm:text-sm font-medium text-gray-500 text-center">
-                Upload Berkas
-              </p>
-            </div>
-
-            <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
 
             <div className="flex flex-col items-center">
               <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-[#1E3A8A] text-white font-semibold text-sm sm:text-base">
@@ -169,8 +148,8 @@ const PageFormAturan: React.FC = () => {
         <div className="bg-blue-50 border border-blue-200 text-blue-900 rounded-b-lg p-4 mb-6 text-sm sm:text-base leading-relaxed">
           <p className="font-semibold mb-2">Catatan:</p>
           <p>
-            Bagian ini <span className="font-semibold">diisi oleh Orang Tua atau Wali Murid</span>.  
-            Harap membaca setiap pernyataan dengan seksama dan memilih “Ya” apabila setuju dengan isi pernyataan.  
+            Bagian ini <span className="font-semibold">diisi oleh Orang Tua atau Wali Murid</span>.
+            Harap membaca setiap pernyataan dengan seksama dan memilih “Ya” apabila setuju dengan isi pernyataan.
             Dengan menyetujui semua pernyataan, Orang Tua/Wali dianggap memahami dan mendukung seluruh kebijakan serta aturan sekolah SMK TI BAZMA.
           </p>
         </div>

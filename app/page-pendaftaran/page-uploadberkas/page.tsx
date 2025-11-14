@@ -21,7 +21,7 @@ const PageFormUpload: React.FC = () => {
     { name: "bpjs", label: "Scan / Foto Kartu BPJS atau KIS" },
     { name: "rekomendasi-surat", label: "Upload Surat Rekomendasi" },
     { name: "tagihan listrik", label: "Upload Bukti Pembayaran Listrik" },
-     { name: "reels", label: "Upload Bukti Link Reels" },
+    { name: "reels", label: "Upload Bukti Link Reels" },
   ];
 
   const housePhotoTypes = [
@@ -89,15 +89,13 @@ const PageFormUpload: React.FC = () => {
     const fileSelected = files[name];
     return (
       <div
-        className={`border rounded-full px-4 py-3 flex items-center justify-between transition cursor-pointer text-sm sm:text-base ${
-          fileSelected ? "bg-green-50 border-green-400" : "bg-white border-gray-300 hover:shadow-md"
-        }`}
+        className={`border rounded-full px-4 py-3 flex items-center justify-between transition cursor-pointer text-sm sm:text-base ${fileSelected ? "bg-green-50 border-green-400" : "bg-white border-gray-300 hover:shadow-md"
+          }`}
       >
         <label
           htmlFor={name}
-          className={`flex items-center gap-2 cursor-pointer transition ${
-            fileSelected ? "text-green-700 font-semibold" : "text-gray-700 hover:text-[#1E3A8A]"
-          }`}
+          className={`flex items-center gap-2 cursor-pointer transition ${fileSelected ? "text-green-700 font-semibold" : "text-gray-700 hover:text-[#1E3A8A]"
+            }`}
         >
           {fileSelected ? (
             <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
@@ -146,7 +144,7 @@ const PageFormUpload: React.FC = () => {
       </header>
 
       {/* FORM CONTAINER */}
-      <div className="w-full max-w-6xl mx-auto bg-gray-50 rounded-xl p-6 sm:p-10 shadow-sm animate__animated animate__fadeInUp animate__slow mt-6">
+      <div className="w-full max-w-6xl mx-auto bg-gray-50 rounded-2xl p-4 sm:p-6 md:p-10 shadow-md animate__animated animate__fadeIn animate__slow">
         {/* Stepper */}
         <div className="text-center mb-8">
           <h1 className="text-xl sm:text-2xl font-bold text-[#1E3A8A] mb-4">
@@ -162,9 +160,8 @@ const PageFormUpload: React.FC = () => {
               <React.Fragment key={idx}>
                 <div className="flex flex-col items-center">
                   <div
-                    className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold ${
-                      item.step === 6 ? "bg-[#1E3A8A] text-white" : "bg-gray-300 text-gray-600"
-                    }`}
+                    className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold ${item.step === 6 ? "bg-[#1E3A8A] text-white" : "bg-gray-300 text-gray-600"
+                      }`}
                   >
                     {item.step}
                   </div>
@@ -220,60 +217,59 @@ const PageFormUpload: React.FC = () => {
             <Image className="w-5 h-5 text-[#1E3A8A]" />
             Upload Foto Rumah (Lengkapi Semua Bagian)
           </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-  {housePhotoTypes.map((photo) => (
-    <div key={photo.name} className="flex flex-col gap-4">
-      {/* Contoh Foto */}
-      <div className="border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition overflow-hidden">
-        <div className="bg-gray-50 text-center py-2 font-semibold text-sm text-[#1E3A8A] border-b">
-          Contoh: {photo.label}
-        </div>
-        <img
-          src={photo.example}
-          alt={`Contoh ${photo.label}`}
-          className="w-full h-56 sm:h-64 object-cover rounded-lg"
-        />
-      </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {housePhotoTypes.map((photo) => (
+              <div key={photo.name} className="flex flex-col gap-4">
+                {/* Contoh Foto */}
+                <div className="border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition overflow-hidden">
+                  <div className="bg-gray-50 text-center py-2 font-semibold text-sm text-[#1E3A8A] border-b">
+                    Contoh: {photo.label}
+                  </div>
+                  <img
+                    src={photo.example}
+                    alt={`Contoh ${photo.label}`}
+                    className="w-full h-56 sm:h-64 object-cover rounded-lg"
+                  />
+                </div>
 
-      {/* Upload Foto */}
-      <div className="border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition overflow-hidden flex flex-col items-center p-3">
-        {housePreviews[photo.name] ? (
-          <img
-            src={housePreviews[photo.name]!}
-            alt={`Preview ${photo.label}`}
-            className="w-full h-56 sm:h-64 object-cover rounded-lg border border-green-200"
-          />
-        ) : (
-          <div className="w-full h-56 sm:h-64 flex items-center justify-center text-gray-400 border border-dashed border-gray-300 rounded-lg text-sm">
-            Belum ada foto
+                {/* Upload Foto */}
+                <div className="border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition overflow-hidden flex flex-col items-center p-3">
+                  {housePreviews[photo.name] ? (
+                    <img
+                      src={housePreviews[photo.name]!}
+                      alt={`Preview ${photo.label}`}
+                      className="w-full h-56 sm:h-64 object-cover rounded-lg border border-green-200"
+                    />
+                  ) : (
+                    <div className="w-full h-56 sm:h-64 flex items-center justify-center text-gray-400 border border-dashed border-gray-300 rounded-lg text-sm">
+                      Belum ada foto
+                    </div>
+                  )}
+                  <p className="text-sm font-semibold text-gray-700 mt-3 mb-2 text-center">
+                    {photo.label}
+                  </p>
+                  <label
+                    htmlFor={photo.name}
+                    className={`cursor-pointer text-xs sm:text-sm flex items-center justify-center gap-2 border px-3 py-1.5 rounded-full w-full sm:w-auto text-center ${housePhotos[photo.name]
+                        ? "bg-green-100 border-green-400 text-green-700"
+                        : "bg-gray-100 border-gray-300 hover:bg-blue-50 hover:text-[#1E3A8A]"
+                      }`}
+                  >
+                    {housePhotos[photo.name] ? <CheckCircle className="w-4 h-4" /> : <Upload className="w-4 h-4" />}
+                    {housePhotos[photo.name] ? "Sudah Diupload" : "Upload Foto"}
+                  </label>
+                  <input
+                    id={photo.name}
+                    name={photo.name}
+                    type="file"
+                    accept=".jpg,.jpeg,.png"
+                    className="hidden"
+                    onChange={handleHousePhotoChange}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
-        )}
-        <p className="text-sm font-semibold text-gray-700 mt-3 mb-2 text-center">
-          {photo.label}
-        </p>
-        <label
-          htmlFor={photo.name}
-          className={`cursor-pointer text-xs sm:text-sm flex items-center justify-center gap-2 border px-3 py-1.5 rounded-full w-full sm:w-auto text-center ${
-            housePhotos[photo.name]
-              ? "bg-green-100 border-green-400 text-green-700"
-              : "bg-gray-100 border-gray-300 hover:bg-blue-50 hover:text-[#1E3A8A]"
-          }`}
-        >
-          {housePhotos[photo.name] ? <CheckCircle className="w-4 h-4" /> : <Upload className="w-4 h-4" />}
-          {housePhotos[photo.name] ? "Sudah Diupload" : "Upload Foto"}
-        </label>
-        <input
-          id={photo.name}
-          name={photo.name}
-          type="file"
-          accept=".jpg,.jpeg,.png"
-          className="hidden"
-          onChange={handleHousePhotoChange}
-        />
-      </div>
-    </div>
-  ))}
-</div>
 
         </div>
 

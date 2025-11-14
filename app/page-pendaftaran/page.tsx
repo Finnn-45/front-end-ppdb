@@ -99,6 +99,8 @@ const PageFormPribadi: React.FC = () => {
       socialMedia: "Media Sosial",
       livingWithCustom: "Tinggal Bersama (Lainnya)",
       addressDetail: "Alamat Rumah (Detail)",
+      rt: "RT",
+      rw: "RW",
     };
 
     for (const [key, value] of Object.entries(formData)) {
@@ -211,24 +213,22 @@ const PageFormPribadi: React.FC = () => {
               <React.Fragment key={step}>
                 <div className="flex flex-col items-center">
                   <div
-                    className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold ${
-                      step === "1"
+                    className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold ${step === "1"
                         ? "bg-[#1E3A8A] text-white"
                         : "bg-gray-300 text-gray-600"
-                    }`}
+                      }`}
                   >
                     {step}
                   </div>
                   <p
-                    className={`mt-1 text-xs sm:text-sm ${
-                      step === "1" ? "text-[#1E3A8A]" : "text-gray-500"
-                    }`}
+                    className={`mt-1 text-xs sm:text-sm ${step === "1" ? "text-[#1E3A8A]" : "text-gray-500"
+                      }`}
                   >
                     {step === "1"
                       ? "Data Pribadi"
                       : step === "2"
-                      ? "Data Prestasi"
-                      : "Data Orang Tua / Wali"}
+                        ? "Data Prestasi"
+                        : "Data Orang Tua / Wali"}
                   </p>
                 </div>
                 {i < 2 && (
@@ -245,7 +245,9 @@ const PageFormPribadi: React.FC = () => {
             <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
               Data Pribadi
             </h2>
+
             <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+
               <input
                 name="fullName"
                 placeholder="Nama Lengkap"
@@ -253,6 +255,7 @@ const PageFormPribadi: React.FC = () => {
                 onChange={handleChange}
                 className={inputClass}
               />
+
               <input
                 name="nisn"
                 placeholder="NISN"
@@ -260,6 +263,8 @@ const PageFormPribadi: React.FC = () => {
                 onChange={handleChange}
                 className={inputClass}
               />
+
+              {/* NIK — Tetap full width di HP & full width di PC */}
               <input
                 name="nik"
                 placeholder="NIK"
@@ -267,6 +272,7 @@ const PageFormPribadi: React.FC = () => {
                 onChange={handleChange}
                 className={`${inputClass} md:col-span-2`}
               />
+
               <input
                 name="birthPlace"
                 placeholder="Tempat Lahir"
@@ -274,6 +280,7 @@ const PageFormPribadi: React.FC = () => {
                 onChange={handleChange}
                 className={inputClass}
               />
+
               <input
                 type="date"
                 name="birthDate"
@@ -281,8 +288,10 @@ const PageFormPribadi: React.FC = () => {
                 onChange={handleChange}
                 className={inputClass}
               />
+
             </div>
           </section>
+
 
           {/* ✅ ALAMAT TINGGAL SEKARANG */}
           <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
@@ -478,9 +487,10 @@ const PageFormPribadi: React.FC = () => {
                   onBlur={() => {
                     // Balik ke dropdown kalau dikosongin
                     if (formData.livingWithCustom.trim() === "") {
-                      handleChange({
-                        target: { name: "livingWith", value: "" },
-                      });
+                      setFormData((prev) => ({
+                        ...prev,
+                        livingWith: "",
+                      }));
                     }
                   }}
                   className={`${inputClass} md:col-span-2 bg-blue-50 border-blue-300 animate-fadeIn`}
@@ -494,9 +504,10 @@ const PageFormPribadi: React.FC = () => {
                     handleChange(e);
                     if (e.target.value === "lainnya") {
                       // Kosongin input custom saat pilih lainnya
-                      handleChange({
-                        target: { name: "livingWithCustom", value: "" },
-                      });
+                      setFormData((prev) => ({
+                        ...prev,
+                        livingWithCustom: "",
+                      }));
                     }
                   }}
                   placeholder="Tinggal Bersama"

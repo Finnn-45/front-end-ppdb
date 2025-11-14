@@ -250,7 +250,7 @@ const PageFormPrestasi: React.FC = () => {
                               )[s as keyof SemesterScore]
                             }
                             onChange={(e) =>
-                              handleChange(e, item.key as keyof PrestasiForm, s)
+                              handleChange(e, item.key as keyof PrestasiForm, s as keyof SemesterScore)
                             }
                           />
                         </td>
