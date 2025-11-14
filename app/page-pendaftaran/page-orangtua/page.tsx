@@ -182,10 +182,10 @@ export default function PageFormOrangTua() {
       text: "Form Data Orang Tua/Wali berhasil disimpan.",
       confirmButtonText: "Lanjutkan",
       confirmButtonColor: "#1E3A8A",
-    }).then(() => router.push("/page-form/page-rumahtinggal"));
+    }).then(() => router.push("/page-pendaftaran/page-rumahtinggal"));
   };
 
-  const handleBack = () => router.push("/page-form/page-prestasi");
+  const handleBack = () => router.push("/page-pendaftaran/page-prestasi");
 
   const SelectWithIcon = ({
     name,
@@ -233,7 +233,7 @@ export default function PageFormOrangTua() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#1E3A8A]/70 via-[#1E3A8A]/10 to-white"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
           <h1 className="text-[#EAF0FF] text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-[0_2px_6px_rgba(0,0,0,0.35)]">
-            Formulir Pendaftaran Calon Siswa
+            Formulir Pendaftaran Calon Murid
           </h1>
           <p className="mt-3 text-[#949494] text-base sm:text-lg md:text-xl font-medium opacity-95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.25)]">
             Data Orang Tua/Wali
@@ -244,7 +244,7 @@ export default function PageFormOrangTua() {
       {/* Progress */}
       <div className="mb-8 text-center">
         <h1 className="text-xl sm:text-2xl font-bold text-[#1E3A8A] mb-4">
-          Formulir Pendaftaran Calon Siswa
+          Formulir Pendaftaran Calon Murid
         </h1>
       </div>
 
@@ -390,8 +390,8 @@ export default function PageFormOrangTua() {
         <div className="bg-blue-50 border border-blue-200 text-blue-900 rounded-b-lg p-4 mb-6 text-sm sm:text-base leading-relaxed">
           <p className="font-semibold mb-2">Catatan:</p>
           <p>
-            Bagian ini <span className="font-semibold">diisi oleh Orang Tua atau Wali Siswa</span>.  
-            Apabila siswa tidak memiliki wali, silakan isi kolom terkait dengan tanda “-” (strip).
+            Bagian ini <span className="font-semibold">diisi oleh Orang Tua atau Wali Murid</span>.  
+            Apabila Murid tidak memiliki wali, silakan isi kolom terkait dengan tanda “-” (strip).
             Untuk kolom yang memerlukan isian angka seperti penghasilan atau tanggungan, 
             silakan isi dengan “0” (nol) jika data tidak tersedia. Pastikan seluruh kolom terisi agar proses pendaftaran dapat berjalan dengan lancar dan sistem dapat menyimpan data dengan benar.
           </p>

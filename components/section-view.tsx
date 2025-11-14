@@ -109,7 +109,7 @@ function StatCard({ title, value }: { title: string; value: number }) {
               <p className="stat-number text-4xl font-bold text-black font-inter" data-value={value}>
                 0
               </p>
-              <p className="text-sm text-gray-600 font-poppins">Siswa</p>
+              <p className="text-sm text-gray-600 font-poppins">Murid</p>
             </div>
           </div>
         </div>

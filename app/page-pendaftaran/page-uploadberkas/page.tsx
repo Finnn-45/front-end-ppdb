@@ -54,7 +54,7 @@ const PageFormUpload: React.FC = () => {
     }
   };
 
-  const handleBack = () => router.push("/page-form/page-kesehatan");
+  const handleBack = () => router.push("/page-pendaftaran/page-kesehatan");
 
   const handleNext = () => {
     const emptyFiles = requiredFiles.filter((f) => !files[f.name]).map((f) => f.label);
@@ -82,7 +82,7 @@ const PageFormUpload: React.FC = () => {
       text: "Terima kasih, semua file berhasil diunggah.",
       confirmButtonText: "Lanjutkan",
       confirmButtonColor: "#1E3A8A",
-    }).then(() => router.push("/page-form/page-aturan"));
+    }).then(() => router.push("/page-pendaftaran/page-aturan"));
   };
 
   const renderButton = (label: string, name: string) => {

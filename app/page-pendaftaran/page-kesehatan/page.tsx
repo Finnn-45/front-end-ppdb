@@ -159,10 +159,10 @@ const PageFormKesehatan: React.FC = () => {
       confirmButtonColor: "#1E3A8A",
       showClass: { popup: "animate__animated animate__fadeInDown" },
       hideClass: { popup: "animate__animated animate__fadeOutUp" },
-    }).then(() => router.push("/page-form/page-uploadberkas"));
+    }).then(() => router.push("/page-pendaftaran/page-uploadberkas"));
   };
 
-  const handleBack = () => router.push("/page-form/page-rumahtinggal");
+  const handleBack = () => router.push("/page-pendaftaran/page-rumahtinggal");
 
   return (
     <>
@@ -228,7 +228,7 @@ const PageFormKesehatan: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-8">
           <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
-              Riwayat Kesehatan Calon Peserta Didik
+              Riwayat Kesehatan Calon Murid
             </h2>
             <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Tinggi & Berat */}
@@ -360,6 +360,7 @@ const PageFormKesehatan: React.FC = () => {
                 options={[
                   { value: "ya", label: "Aktif" },
                   { value: "tidak", label: "Pasif" },
+                  { value: "mustahil", label: "Tidak sama sekali" },
                 ]}
               />
             </div>

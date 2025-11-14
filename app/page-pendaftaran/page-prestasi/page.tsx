@@ -129,10 +129,10 @@ const PageFormPrestasi: React.FC = () => {
       confirmButtonColor: "#1E3A8A",
       showClass: { popup: "animate__animated animate__fadeInDown" },
       hideClass: { popup: "animate__animated animate__fadeOutUp" },
-    }).then(() => router.push("/page-form/page-orangtua"));
+    }).then(() => router.push("/page-pendaftaran/page-orangtua"));
   };
 
-  const handleBack = () => router.push("/page-form");
+  const handleBack = () => router.push("/page-pendaftaran");
 
   const inputClass =
     "w-full border border-gray-300 rounded-full px-4 py-3 text-sm sm:text-base focus:ring-2 focus:ring-[#1E3A8A] focus:outline-none transition duration-200";
@@ -166,7 +166,38 @@ const PageFormPrestasi: React.FC = () => {
           <h1 className="text-xl sm:text-2xl font-bold text-[#1E3A8A] mb-4">
             Formulir Pendaftaran Calon Murid
           </h1>
+          <div className="flex justify-center items-center flex-wrap gap-4">
+          {["1", "2", "3"].map((step, i) => (
+            <React.Fragment key={step}>
+              <div className="flex flex-col items-center">
+                <div
+                  className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold ${step === "2"
+                      ? "bg-[#1E3A8A] text-white"
+                      : "bg-gray-300 text-gray-600"
+                    }`}
+                >
+                  {step}
+                </div>
+                <p
+                  className={`mt-1 text-xs sm:text-sm ${step === "2" ? "text-[#1E3A8A]" : "text-gray-500"
+                    }`}
+                >
+                  {step === "1"
+                    ? "Data Pribadi"
+                    : step === "2"
+                      ? "Data Prestasi"
+                      : "Data Orang Tua / Wali"}
+                </p>
+              </div>
+              {i < 2 && (
+                <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
+              )}
+            </React.Fragment>
+          ))}
         </div>
+        </div>
+
+        
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Akademik */}
@@ -214,7 +245,7 @@ const PageFormPrestasi: React.FC = () => {
                             value={
                               (
                                 formData[
-                                  item.key as keyof PrestasiForm
+                                item.key as keyof PrestasiForm
                                 ] as SemesterScore
                               )[s as keyof SemesterScore]
                             }
@@ -236,7 +267,7 @@ const PageFormPrestasi: React.FC = () => {
                   name="foreignLanguage"
                   placeholder="Bahasa asing yang dikuasai (Jika Ada)"
                   value={formData.foreignLanguage}
-                 onChange={handleChange}
+                  onChange={handleChange}
                   className={textAreaClass}
 
                 />
@@ -255,7 +286,7 @@ const PageFormPrestasi: React.FC = () => {
           {/* Riwayat Prestasi */}
           <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
-              Riwayat Prestasi 
+              Riwayat Prestasi
             </h2>
             <div className="p-4 sm:p-6 grid grid-cols-1 gap-4">
               <textarea

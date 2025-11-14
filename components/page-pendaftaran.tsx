@@ -126,7 +126,7 @@ export default function PagePendaftaran() {
 
           {status === "none" && (
             <button
-              onClick={() => router.push("/page-form")}
+              onClick={() => router.push("/page-pendaftaran")}
               className="bg-white text-[#1E3A8A] font-semibold px-6 py-2 rounded-full hover:bg-gray-100 transition"
             >
               Daftar Sekarang →

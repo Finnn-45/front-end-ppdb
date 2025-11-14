@@ -137,7 +137,7 @@ const PageFormPribadi: React.FC = () => {
       text: "Yuk lanjut ke langkah berikutnya!",
       confirmButtonText: "Lanjutkan",
       confirmButtonColor: "#1E3A8A",
-    }).then(() => router.push("/page-form/page-prestasi"));
+    }).then(() => router.push("/page-pendaftaran/page-prestasi"));
   };
 
   const inputClass =

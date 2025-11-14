@@ -16,7 +16,7 @@ const PageFormAturan: React.FC = () => {
   };
 
   const handleBack = () => {
-    router.push("/page-form/page-uploadberkas");
+    router.push("/page-pendaftaran/page-uploadberkas");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -71,7 +71,7 @@ const PageFormAturan: React.FC = () => {
       confirmButtonColor: "#1E3A8A",
       showClass: { popup: "animate__animated animate__fadeInDown" },
       hideClass: { popup: "animate__animated animate__fadeOutUp" },
-    }).then(() => router.push("/page-form/page-terimakasih"));
+    }).then(() => router.push("/page-pendaftaran/page-terimakasih"));
   };
 
   const handleAnswerChange = (index: number, value: string) => {
@@ -169,7 +169,7 @@ const PageFormAturan: React.FC = () => {
         <div className="bg-blue-50 border border-blue-200 text-blue-900 rounded-b-lg p-4 mb-6 text-sm sm:text-base leading-relaxed">
           <p className="font-semibold mb-2">Catatan:</p>
           <p>
-            Bagian ini <span className="font-semibold">diisi oleh Orang Tua atau Wali Siswa</span>.  
+            Bagian ini <span className="font-semibold">diisi oleh Orang Tua atau Wali Murid</span>.  
             Harap membaca setiap pernyataan dengan seksama dan memilih “Ya” apabila setuju dengan isi pernyataan.  
             Dengan menyetujui semua pernyataan, Orang Tua/Wali dianggap memahami dan mendukung seluruh kebijakan serta aturan sekolah SMK TI BAZMA.
           </p>

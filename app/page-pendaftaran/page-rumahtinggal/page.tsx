@@ -137,10 +137,10 @@ export default function PageFormRumah() {
       text: "Form Data Rumah kamu berhasil disimpan.",
       confirmButtonText: "Lanjutkan",
       confirmButtonColor: "#1E3A8A",
-    }).then(() => router.push("/page-form/page-kesehatan"));
+    }).then(() => router.push("/page-pendaftaran/page-kesehatan"));
   };
 
-  const handleBack = () => router.push("/page-form/page-orangtua");
+  const handleBack = () => router.push("/page-pendaftaran/page-orangtua");
 
   // Komponen select dengan ikon
   const SelectWithIcon = ({
