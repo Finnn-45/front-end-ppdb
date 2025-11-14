@@ -32,13 +32,14 @@
       activeImg: "/icons/1 (3).png",
       inactiveImg: "/icons/1 (2).png",
     },
-    {
-      name: "Seleksi Berkas",
-      activeImg: "/icons/1 (3).png",
-      inactiveImg: "/icons/1 (4).png",
-    },
+    
     {
       name: "Tes Akademik",
+      activeImg: "/icons/1 (5).png",
+      inactiveImg: "/icons/1 (6).png",
+    },
+    {
+      name: "Tes Baca Al-Qur'an",
       activeImg: "/icons/1 (5).png",
       inactiveImg: "/icons/1 (6).png",
     },
@@ -48,7 +49,7 @@
       inactiveImg: "/icons/1 (10).png",
     },
     {
-      name: "Tes Psikotes",
+      name: "Psikotes",
       activeImg: "/icons/1 (7).png",
       inactiveImg: "/icons/1 (8).png",
     },
@@ -116,23 +117,51 @@
       {
         id: 1,
         image: "/gambar2.png",
-        title: "Ujian Psikotest",
-        date: "20 - 25 April, 2025",
-        desc: "Calon siswa mengisi formulir pendaftaran online atau langsung di sekolah untuk memulai proses seleksi.",
+        title: "Pendaftaran",
+        date: "15 Nov - 27 Des 2025",
+        desc: "Calon Murid mengisi formulir pendaftaran online atau langsung di sekolah untuk memulai proses seleksi.",
       },
       {
         id: 2,
         image: "/gambar3.png",
         title: "Tes Akademik",
-        date: "24 - 25 Januari, 2025",
+        date: "24 Jan - 25 Jan 2026",
         desc: "Peserta mengikuti tes akademik untuk mengukur kemampuan dasar dan pengetahuan umum.",
       },
       {
         id: 3,
-        image: "/gambar4.png",
+        image: "/ngaji.png",
+        title: "Tes Baca Al-Qur'an",
+        date: " 14 Feb - 17 Feb 2026",
+        desc: "Peserta mengikuti tes baca Qur'an untuk mengukur tingkat kelancaran, ketepatan makhraj, penerapan hukum tajwid, serta pemahaman dasar dalam membaca Al-Qur'an.",
+      },
+      {
+        id: 4,
+        image: "/wawa.png",
+        title: "Wawancara",
+        date: " 6 Apr - 11 Apr 2026",
+        desc: "Peserta mengikuti wawancara untuk memperoleh gambaran menyeluruh mengenai karakter, kompetensi, dan komitmen peserta.",
+      },
+      {
+        id: 5,
+        image: "/foto.png",
+        title: "Psikotes",
+        date: " 18 Apr - 19 Apr 2026",
+        desc: "Peserta mengikuti psikotes untuk mengidentifikasi minat, bakat, serta potensi diri yang dimiliki oleh peserta.",
+      },
+      {
+        id: 6,
+        image: "/r.png",
+        title: "Home Visit",
+        date: " 4 Mei - 9 Mei 2026",
+        desc: "Home visit dilaksanakan untuk memperoleh gambaran komprehensif mengenai lingkungan tempat tinggal, serta faktor-faktor yang memengaruhi perkembangan peserta.",
+      },
+      {
+        id: 7,
+        image: "/pengumaman.png",
         title: "Pengumuman",
-        date: " 22 - 23 Mei, 2025",
-        desc: "Hasil seleksi diumumkan resmi melalui website SPMB SMK TI Bazma.",
+        date: " 22 - 23 Mei 2026",
+        desc: "Pengumuman ini disampaikan untuk memberikan informasi mengenai hasil proses seleksi yang telah dilaksanakan.",
       },
     ];
 
@@ -724,7 +753,7 @@
 
           {/* Judul */}
           <h2 className="text-2xl font-bold text-[#1E3A8A] text-center mb-8">
-            Tata Cara Pendaftaran
+            Rangkaian Alur Seleksi
           </h2>
 
           {/* Langkah-langkah singkat */}
@@ -736,11 +765,12 @@
               <b>Lengkapi Formulir:</b> Isi data diri dan unggah dokumen yang diminta.
             </li>
             <li>
-              <b>Ikuti Seleksi:</b> Hadiri tes akademik, psikotes, dan wawancara.
+              <b>Ikuti Keseluruhan Rangkaian Seleksi:</b> Tes Akademik, Tes Bacaan Al-Qur'an, Wawancara, Survey Faktual, Psikotes.
             </li>
             <li>
-              <b>Home Visit:</b> Tim panitia akan melakukan kunjungan ke rumah.
+              <b>Pantuhir:</b> Penentuan Akhir.
             </li>
+            
             <li>
               <b>Pengumuman:</b> Cek hasil seleksi di website atau grup resmi.
             </li>
@@ -758,11 +788,16 @@
               📄 Berkas yang Harus Disiapkan
             </h3>
             <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm md:text-base">
-              <li>Surat Pernyataan Orang Tua/Wali</li>
+              <li>Dokumen Nilai Rapor Semester 3-5</li>
+              <li>Screenshot Bukti Follow IG @smktibazma</li>
+              <li>Scan/Foto Kartu Keluarga</li>
+              <li>Scan/Foto Kartu BPJS atau KIS</li>
+              <li>Scan/Foto Kartu Indonesia Pintar (Jika Ada)</li>
               <li>Surat Rekomendasi dari Sekolah Asal</li>
-              <li>Surat Keterangan Tidak Mampu (SKTM) dari Kelurahan/Desa</li>
-              <li>Fotokopi Kartu Keluarga dan Akta Kelahiran</li>
-              <li>Pas Foto Berwarna Ukuran 3x4 (2 lembar)</li>
+              <li>Surat Keterangan Tidak Mampu (SKTM) dari DKM Masjid Setempat</li>
+              <li>Membuat Video Reels Sesuai Ketentuan</li>
+              <li>Bukti Pembayaran Listrik</li>
+              <li>Pas Foto Berwarna Ukuran 3x4 </li>
             </ul>
 
             {/* Tombol unduh template per berkas */}
@@ -774,8 +809,8 @@
               <div className="flex flex-col md:flex-row gap-3">
                 {/* Surat Rekomendasi */}
                 <a
-                  href="/files/pernyataaan.pdf"
-                  download
+                  href="/files/suratrekomendasi.pdf"
+                  download = "suratrekomendasi.pdf"
                   className="flex-1 text-center px-5 py-2 bg-[#1E3A8A] text-white rounded-full hover:bg-[#162c6e] transition"
                 >
                   📘 Unduh Surat Rekomendasi
@@ -783,8 +818,8 @@
 
                 {/* Surat SKTM */}
                 <a
-                  href="/files/SKTM.pdf"
-                  download
+                  href="/files/sktmdarimasjid.pdf"
+                  download = "sktmdarimasjid.pdf"
                   className="flex-1 text-center px-5 py-2 bg-[#1E3A8A] text-white rounded-full hover:bg-[#162c6e] transition"
                 >
                   📄 Unduh Surat SKTM

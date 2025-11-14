@@ -32,15 +32,10 @@ interface OrangTuaForm {
   waliSumber: string;
   walipenghasilan: string;
 
-  // 🔹 Kerabat
-  kerabatNama: string;
-  kerabatHubungan: string;
-  kerabatTelepon: string;
 
   // 🔹 Info tambahan
   infoPPDB: string;
   saudaraBeasiswa: string;
-  fasilitatorEmail: string;
 }
 
 export default function PageFormOrangTua() {
@@ -71,13 +66,9 @@ export default function PageFormOrangTua() {
     waliSumber: "",
     walipenghasilan: "",
 
-    kerabatNama: "",
-    kerabatHubungan: "",
-    kerabatTelepon: "",
 
     infoPPDB: "",
     saudaraBeasiswa: "",
-    fasilitatorEmail: "",
   });
 
   const inputClass =
@@ -150,16 +141,14 @@ export default function PageFormOrangTua() {
       waliSumber: "Sumber Penghasilan Wali",
       walipenghasilan: "Penghasilan Wali",
 
+      
 
       infoPPDB: "Mengetahui Informasi PPDB dari",
       saudaraBeasiswa: "Memiliki Saudara Penerima Beasiswa",
-      fasilitatorEmail: "Email Fasilitator",
     };
 
     const wajibDiisi: (keyof OrangTuaForm)[] = [
-      "kerabatNama",
-      "kerabatHubungan",
-      "kerabatTelepon",
+
       "infoPPDB",
       "saudaraBeasiswa",
     ];
@@ -259,38 +248,37 @@ export default function PageFormOrangTua() {
         </h1>
       </div>
 
-   
-        <div className="flex justify-center items-center flex-wrap gap-4">
-          {["1", "2", "3"].map((step, i) => (
-            <React.Fragment key={step}>
-              <div className="flex flex-col items-center">
-                <div
-                  className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold ${
-                    step === "3"
-                      ? "bg-[#1E3A8A] text-white"
-                      : "bg-gray-300 text-gray-600"
-                  }`}
-                >
-                  {step}
-                </div>
-                <p
-                  className={`mt-1 text-xs sm:text-sm ${
-                    step === "3" ? "text-[#1E3A8A]" : "text-gray-500"
-                  }`}
-                >
-                  {step === "1"
-                    ? "Data Pribadi"
-                    : step === "2"
-                    ? "Data Prestasi"
-                    : "Data Orang Tua / Wali"}
-                </p>
+      <div className="flex justify-center items-center flex-wrap gap-4">
+        {["1", "2", "3"].map((step, i) => (
+          <React.Fragment key={step}>
+            <div className="flex flex-col items-center">
+              <div
+                className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full font-semibold ${
+                  step === "3"
+                    ? "bg-[#1E3A8A] text-white"
+                    : "bg-gray-300 text-gray-600"
+                }`}
+              >
+                {step}
               </div>
-              {i < 2 && (
-                <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
-              )}
-            </React.Fragment>
-          ))}
-        </div>
+              <p
+                className={`mt-1 text-xs sm:text-sm ${
+                  step === "3" ? "text-[#1E3A8A]" : "text-gray-500"
+                }`}
+              >
+                {step === "1"
+                  ? "Data Pribadi"
+                  : step === "2"
+                  ? "Data Prestasi"
+                  : "Data Orang Tua / Wali"}
+              </p>
+            </div>
+            {i < 2 && (
+              <div className="hidden sm:flex flex-1 h-[2px] bg-gray-300 max-w-[60px]" />
+            )}
+          </React.Fragment>
+        ))}
+      </div>
 
       {/* Form */}
       <div className="w-full max-w-6xl mx-auto bg-gray-50 rounded-xl p-4 sm:p-6 md:p-10 shadow-md animate__animated animate__fadeIn ">
@@ -396,8 +384,18 @@ export default function PageFormOrangTua() {
           {/* Wali */}
           <section className="bg-white rounded-xl shadow-sm border overflow-hidden">
             <h2 className="bg-[#1E3A8A] text-white text-base sm:text-lg font-semibold px-6 py-3">
-              Informasi Wali
+              Informasi Wali 
             </h2>
+            {/* 🧾 Catatan */}
+        <div className="bg-blue-50 border border-blue-200 text-blue-900 rounded-b-lg p-4 mb-6 text-sm sm:text-base leading-relaxed">
+          <p className="font-semibold mb-2">Catatan:</p>
+          <p>
+            Bagian ini <span className="font-semibold">diisi oleh Orang Tua atau Wali Siswa</span>.  
+            Apabila siswa tidak memiliki wali, silakan isi kolom terkait dengan tanda “-” (strip).
+            Untuk kolom yang memerlukan isian angka seperti penghasilan atau tanggungan, 
+            silakan isi dengan “0” (nol) jika data tidak tersedia. Pastikan seluruh kolom terisi agar proses pendaftaran dapat berjalan dengan lancar dan sistem dapat menyimpan data dengan benar.
+          </p>
+        </div>
             <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
                 "waliNama",
@@ -457,8 +455,6 @@ export default function PageFormOrangTua() {
               Kerabat / Kenalan
             </h2>
             <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-          
-
               {!isLainnyaInfo ? (
                 <SelectWithIcon
                   name="infoPPDB"

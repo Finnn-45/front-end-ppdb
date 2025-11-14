@@ -12,7 +12,7 @@ import {
 
 export default function PageBantuan() {
   // Nomor WhatsApp sekolah
-  const whatsappNumber = "6283890713395"; // tanpa 0 di depan, pakai kode negara
+  const whatsappNumber = "6285591575527"; // tanpa 0 di depan, pakai kode negara
   const whatsappMessage =
     "Halo, saya ingin bertanya mengenai PPDB SMK TI Bazma.";
 
@@ -109,7 +109,7 @@ export default function PageBantuan() {
 
       {/* YouTube */}
       <a
-        href="https://youtube.com/@smktibazma"
+        href="https://www.youtube.com/@smktibazma2025"
         target="_blank"
         rel="noopener noreferrer"
         className="flex flex-col items-center justify-center bg-white border border-gray-100 p-8 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300"

@@ -116,7 +116,7 @@ export default function PagePengumuman() {
               Kontak
             </button>
             <button
-              onClick={() => window.open("https://wa.me/6281234567890", "_blank")}
+              onClick={() => window.open("https://wa.me/6285591575527", "_blank")}
               className="flex items-center gap-2 bg-[#25D366] text-white px-5 py-2 rounded-full font-medium hover:bg-[#1DA851] transition"
             >
               <svg

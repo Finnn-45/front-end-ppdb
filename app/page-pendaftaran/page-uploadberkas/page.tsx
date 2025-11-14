@@ -12,7 +12,7 @@ const PageFormUpload: React.FC = () => {
   const [housePreviews, setHousePreviews] = useState<{ [key: string]: string | null }>({});
 
   const requiredFiles = [
-    { name: "rapot", label: "Dokumen Nilai Rapot Semester 3–5" },
+    { name: "rapor", label: "Dokumen Nilai Rapot Semester 3–5" },
     { name: "sktm", label: "Surat Keterangan Tidak Mampu (SKTM)" },
     { name: "ss_ig", label: "Screenshot Follow IG @smktibazma" },
     { name: "kk", label: "Kartu Keluarga (KK)" },
@@ -20,8 +20,8 @@ const PageFormUpload: React.FC = () => {
     { name: "kip", label: "Sertakan Bukti KIP" },
     { name: "bpjs", label: "Scan / Foto Kartu BPJS atau KIS" },
     { name: "rekomendasi-surat", label: "Upload Surat Rekomendasi" },
-    { name: "tagihan listrik", label: "Upload Bukti Pembayaran Token Listrik" },
-     { name: "reels", label: "Upload Bukti Upload Reels" },
+    { name: "tagihan listrik", label: "Upload Bukti Pembayaran Listrik" },
+     { name: "reels", label: "Upload Bukti Link Reels" },
   ];
 
   const housePhotoTypes = [
@@ -192,7 +192,7 @@ const PageFormUpload: React.FC = () => {
             </li>
             <li>
               Surat Rekomendasi{" "}
-              <a href="/files/pernyataan.pdf" download className="text-[#1E3A8A] font-medium hover:underline">
+              <a href="/files/Surat_Rekom.pdf" download className="text-[#1E3A8A] font-medium hover:underline">
                 Unduh di sini
               </a>
             </li>

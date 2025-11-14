@@ -27,7 +27,7 @@ export default function PageRegister() {
         {/* Kanan: Poster (disembunyikan di mobile) */}
         <div className="hidden md:flex flex-1 justify-center items-center bg-[#f5f7ff] p-8">
           <img
-            src="/page.png"
+            src="/eaa.png"
             alt="Poster PPDB"
             className="max-w-xs md:max-w-md w-full h-auto object-contain"
           />

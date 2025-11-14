@@ -57,6 +57,15 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleRegister} className="space-y-4">
       <input
+        type="String"
+        name="String"
+        placeholder="Nama Lengkap"
+        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#1d2b6f] outline-none"
+        value={formData.String}
+        onChange={handleChange}
+        required
+      />
+      <input
         type="email"
         name="email"
         placeholder="Alamat Email"
@@ -98,7 +107,7 @@ export default function RegisterForm() {
           onClick={() => router.push("/")}
           className="font-semibold text-[#1d2b6f] hover:underline"
         >
-          Masuk Disini
+          Masuk Disini.
         </button>
       </p>
     </form>

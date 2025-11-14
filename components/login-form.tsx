@@ -118,13 +118,13 @@ export default function LoginForm() {
       </button>
 
       <p className="text-center text-sm text-gray-600 mt-2">
-        Ga punya akun?{" "}
+        Belum Punya Akun?{" "}
         <button
           type="button"
           onClick={() => router.push("/register-form")}
           className="font-semibold text-[#1d2b6f] hover:underline"
         >
-          Daftar Disini
+          Daftar Disini.
         </button>
       </p>
     </form>

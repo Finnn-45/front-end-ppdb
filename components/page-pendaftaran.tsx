@@ -13,22 +13,22 @@ const steps = [
     inactiveImg: "/icons/1 (2).png",
   },
   {
-    name: "Seleksi Berkas",
-    activeImg: "/icons/1 (3).png",
-    inactiveImg: "/icons/1 (4).png",
-  },
+      name: "Tes Akademik",
+      activeImg: "/icons/1 (5).png",
+      inactiveImg: "/icons/1 (6).png",
+    },
   {
-    name: "Tes Akademik",
-    activeImg: "/icons/1 (5).png",
-    inactiveImg: "/icons/1 (6).png",
-  },
+      name: "Tes Baca Al-Qur'an",
+      activeImg: "/icons/1 (5).png",
+      inactiveImg: "/icons/1 (6).png",
+    },
   {
     name: "Wawancara",
     activeImg: "/icons/1 (9).png",
     inactiveImg: "/icons/1 (10).png",
   },
   {
-    name: "Tes Psikotes",
+    name: "Psikotes",
     activeImg: "/icons/1 (7).png",
     inactiveImg: "/icons/1 (8).png",
   },
@@ -180,126 +180,116 @@ export default function PagePendaftaran() {
         </div>
       </section>
 
-      {/* Modal Tata Cara Pendaftaran */}
-      {mounted &&
-        showModal &&
-        createPortal(
-          <div className="fixed inset-0 z-[100] flex items-center justify-center">
-            <div
-              className="absolute inset-0 bg-black/60"
-              onClick={() => setShowModal(false)}
-            />
-            <div className="relative z-[101] bg-white rounded-2xl shadow-xl w-full max-w-5xl p-10 mx-4">
-              <button
-                onClick={() => setShowModal(false)}
-                className="absolute top-4 right-4 text-gray-500 hover:text-red-500"
-              >
-                ✕
-              </button>
-              <h2 className="text-2xl font-bold text-center text-[#1E3A8A] mb-10">
-                Tata Cara Pendaftaran
-              </h2>
+      {/* MODAL TATA CARA PENDAFTARAN */}
+  {showModal && (
+    <>
+      {/* Latar belakang hitam transparan */}
+      <div
+        className="fixed inset-0 bg-black/50 z-[1000]"
+        onClick={() => setShowModal(false)}
+      ></div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-sm text-gray-700">
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <span className="text-2xl font-bold text-[#1E3A8A]">1</span>
-                    <div>
-                      <h1 className="text-lg font-semibold">Daftar Online</h1>
-                      <p>
-                        Calon siswa membuka website resmi SPMB SMK TI Bazma dan
-                        mengisi formulir pendaftaran. Pastikan semua data sesuai
-                        identitas asli, karena akan menjadi dasar administrasi
-                        seleksi.
-                      </p>
-                    </div>
-                  </div>
+      {/* Kontainer popup */}
+      <div className="fixed inset-0 z-[1001] flex items-center justify-center p-4 animate-fadeIn">
+        <div className="relative bg-white rounded-2xl shadow-2xl max-w-4xl w-full p-8 max-h-[90vh] overflow-y-auto">
+          {/* Tombol close (X) */}
+          <button
+            onClick={() => setShowModal(false)}
+            className="absolute top-4 right-4 text-gray-500 hover:text-red-500"
+          >
+            ✕
+          </button>
 
-                  <div className="flex items-start gap-4">
-                    <span className="text-2xl font-bold text-[#1E3A8A]">2</span>
-                    <div>
-                      <h1 className="text-lg font-semibold">Unggah Berkas</h1>
-                      <p>
-                        Setelah mengisi formulir, calon siswa wajib mengunggah
-                        dokumen pendukung. Dokumen ini digunakan sebagai bukti
-                        kelulusan dan identitas resmi. Berkas yang diperlukan
-                        meliputi
-                      </p>
-                    </div>
-                  </div>
+          {/* Judul */}
+          <h2 className="text-2xl font-bold text-[#1E3A8A] text-center mb-8">
+            Rangkaian Alur Seleksi
+          </h2>
 
-                  <div className="flex items-start gap-4">
-                    <span className="text-2xl font-bold text-[#1E3A8A]">3</span>
-                    <div>
-                      <h1 className="text-lg font-semibold">Tes Seleksi</h1>
-                      <p>
-                        Peserta akan mengikuti beberapa tahap seleksi untuk
-                        menilai kemampuan akademik, psikologis, dan motivasi
-                        belajar. Tahap seleksi meliputi
-                      </p>
-                    </div>
-                  </div>
-                </div>
+          {/* Langkah-langkah singkat */}
+          <ol className="list-decimal list-inside space-y-3 text-gray-700 text-sm md:text-base leading-relaxed">
+            <li>
+              <b>Daftar Akun:</b> Buat akun di website resmi SPMB SMK TI Bazma.
+            </li>
+            <li>
+              <b>Lengkapi Formulir:</b> Isi data diri dan unggah dokumen yang diminta.
+            </li>
+            <li>
+              <b>Ikuti Keseluruhan Rangkaian Seleksi:</b> Tes Akademik, Tes Bacaan Al-Qur'an, Wawancara, Survey Faktual, Psikotes.
+            </li>
+            <li>
+              <b>Pantuhir:</b> Penentuan Akhir.
+            </li>
+            
+            <li>
+              <b>Pengumuman:</b> Cek hasil seleksi di website atau grup resmi.
+            </li>
+            <li>
+              <b>Daftar Ulang:</b> Selesaikan proses daftar ulang jika dinyatakan lulus.
+            </li>
+          </ol>
 
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <span className="text-2xl font-bold text-[#1E3A8A]">4</span>
-                    <div>
-                      <h1 className="text-lg font-semibold">Home Visit</h1>
-                      <p>
-                        Panitia SPMB dapat melakukan kunjungan ke rumah calon
-                        siswa untuk mengenal lebih dekat kondisi lingkungan
-                        keluarga. Tujuan dari home visit adalah memastikan
-                        kesiapan siswa dan orang tua dalam mendukung pendidikan
-                        penuh di SMK TI Bazma yang berbasis asrama.
-                      </p>
-                    </div>
-                  </div>
+          {/* Garis pemisah */}
+          <div className="border-t my-8 border-gray-300"></div>
 
-                  <div className="flex items-start gap-4">
-                    <span className="text-2xl font-bold text-[#1E3A8A]">5</span>
-                    <div>
-                      <h1 className="text-lg font-semibold">Pengumuman</h1>
-                      <p>
-                        Hasil seleksi akan diumumkan secara resmi melalui
-                        website SPMB SMK TI Bazma. juga diinformasikan lewat
-                        grup WhatsApp resmi. Setiap calon siswa diharapkan
-                        memantau pengumuman sesuai dengan jadwal yang telah
-                        ditetapkan.
-                      </p>
-                    </div>
-                  </div>
+          {/* Bagian Berkas yang Harus Disiapkan */}
+          <div>
+            <h3 className="text-xl font-semibold text-[#1E3A8A] mb-3 flex items-center gap-2">
+              📄 Berkas yang Harus Disiapkan
+            </h3>
+            <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm md:text-base">
+              <li>Dokumen Nilai Rapor Semester 3-5</li>
+              <li>Screenshot Bukti Follow IG @smktibazma</li>
+              <li>Scan/Foto Kartu Keluarga</li>
+              <li>Scan/Foto Kartu BPJS atau KIS</li>
+              <li>Scan/Foto Kartu Indonesia Pintar (Jika Ada)</li>
+              <li>Surat Rekomendasi dari Sekolah Asal</li>
+              <li>Surat Keterangan Tidak Mampu (SKTM) dari DKM Masjid Setempat</li>
+              <li>Membuat Video Reels Sesuai Ketentuan</li>
+              <li>Bukti Pembayaran Listrik</li>
+              <li>Pas Foto Berwarna Ukuran 3x4 </li>
+            </ul>
 
-                  <div className="flex items-start gap-4">
-                    <span className="text-2xl font-bold text-[#1E3A8A]">!</span>
-                    <div>
-                      <h1 className="text-lg font-semibold">
-                        Keterangan Tambahan
-                      </h1>
-                      <p>
-                        Gap Year, SMK TI Bazma memberikan kesempatan bagi
-                        lulusan SMP/MTs yang tidak langsung melanjutkan sekolah
-                        di tahun kelulusannya. Bagi calon siswa yang mengambil
-                        masa jeda atau gap year maksimal satu tahun, tetap
-                        diperbolehkan untuk mengikuti proses SPMB.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {/* Tombol unduh template per berkas */}
+            <div className="mt-6 space-y-3">
+              <p className="text-sm text-gray-600 mb-2">
+                Gunakan template resmi berikut untuk mempermudah pembuatan surat:
+              </p>
 
-              <div className="flex justify-center mt-10">
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="px-8 py-2 bg-[#1E3A8A] text-white rounded-full hover:bg-[#162c6e] transition"
+              <div className="flex flex-col md:flex-row gap-3">
+                {/* Surat Rekomendasi */}
+                <a
+                  href="/files/suratrekomendasi.pdf"
+                  download = "suratrekomendasi.pdf"
+                  className="flex-1 text-center px-5 py-2 bg-[#1E3A8A] text-white rounded-full hover:bg-[#162c6e] transition"
                 >
-                  Tutup
-                </button>
+                  📘 Unduh Surat Rekomendasi
+                </a>
+
+                {/* Surat SKTM */}
+                <a
+                  href="/files/sktmdarimasjid.pdf"
+                  download = "sktmdarimasjid.pdf"
+                  className="flex-1 text-center px-5 py-2 bg-[#1E3A8A] text-white rounded-full hover:bg-[#162c6e] transition"
+                >
+                  📄 Unduh Surat SKTM
+                </a>
               </div>
             </div>
-          </div>,
-          document.body
-        )}
+          </div>
+
+          {/* Tombol tutup */}
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={() => setShowModal(false)}
+              className="px-6 py-2 bg-[#1E3A8A] text-white rounded-full hover:bg-[#162c6e] transition"
+            >
+              Saya Mengerti
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  )}
 
       {/* Alur Pendaftaran (Stepper) */}
       <section className="mb-10">
