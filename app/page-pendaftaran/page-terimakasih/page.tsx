@@ -12,7 +12,7 @@ export default function PageForm8() {
 
   // ✅ Ganti link ini dengan link grup WhatsApp SPMB yang asli
   const handleJoinGroup = () => {
-    window.open("https://chat.whatsapp.com/contohLinkSPMB", "_blank");
+    window.open("https://chat.whatsapp.com/JjCDmRJOCukE8TXXoaDMn8", "_blank");
   };
 
   return (
